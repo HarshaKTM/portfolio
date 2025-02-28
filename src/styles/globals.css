@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply transition-colors;
+  }
+  
+  .social-icon {
+    @apply hover:scale-110 transition-transform;
+  }
+
+  .tech-icon-container {
+    @apply relative flex flex-col items-center justify-center p-4 rounded-lg 
+    transition-all duration-300 hover:shadow-lg cursor-pointer;
+  }
+
+  .tech-icon {
+    @apply text-4xl mb-2 transition-all duration-300;
+  }
+
+  .tech-label {
+    @apply text-sm transition-colors duration-300;
+  }
+
+  .magic-button {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .magic-button::before {
+    @apply content-[''] absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+  }
+
+  .magic-button:hover::before {
+    @apply opacity-100;
+  }
+}
+
+/* Add smooth transitions */
+* {
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.dark {
+  @apply bg-black text-gray-100;
+}
+
+.light {
+  @apply bg-gray-50 text-black;
+}
+
+/* Dark mode specific styles */
+.dark .card {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.dark .button {
+  @apply bg-gray-800 hover:bg-gray-700;
+}
+
+.dark .input {
+  @apply bg-gray-900 border-gray-700;
+}
+
+/* Add these to your existing dark mode styles */
+.dark .project-card {
+  @apply bg-gray-900 border-gray-800 shadow-xl;
+}
+
+.dark .project-card:hover {
+  @apply bg-gray-800;
+  transform: translateY(-2px);
+}
+
+.dark .project-title {
+  @apply text-gray-100;
+}
+
+.dark .project-description {
+  @apply text-gray-300;
+}
+
+.dark .project-link {
+  @apply text-blue-400 hover:text-blue-300;
+}
+
+.dark .project-link-secondary {
+  @apply text-gray-300 hover:text-gray-100;
+}
+
+/* Add any custom styles below */
+.typewriter-wrapper {
+  @apply font-bold;
+}
+
+.typewriter-role {
+  @apply font-semibold;
+}
+
+/* Cursor styling */
+.Typewriter__cursor {
+  @apply font-light;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Improve button hover states */
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+/* Smooth transitions for all interactive elements */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+} 
