@@ -73,7 +73,7 @@ export default function Contact() {
                     <div>
                       <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Location</p>
                       <p className={`${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-                        Malabe, Sri Lanka
+                        220, sudarshana mawatha, malabe
                       </p>
                     </div>
                   </div>

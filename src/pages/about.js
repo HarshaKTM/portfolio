@@ -8,6 +8,9 @@ import {
   SiAngular, SiVuedotjs, SiGraphql, SiFirebase
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
+import Head from 'next/head';
+import Skills from '../sections/Skills';
+import Image from 'next/image';
 
 const technologies = [
   {
@@ -157,131 +160,144 @@ export default function About() {
   
   return (
     <Layout>
-      <div className={`min-h-screen ${darkMode ? 'bg-black' : 'bg-gray-50'}`}>
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          {/* About Me Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-16"
-          >
-            <h1 className={`text-4xl font-bold mb-8 ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-              About Me
-            </h1>
-            <div className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-lg shadow-lg p-8 mb-8`}>
-              <p className={`text-lg mb-6 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                I am a highly motivated Software Engineering student with a strong foundation in full-stack development, DevOps, and cloud computing. Passionate about building scalable, efficient, and user-friendly applications, I have hands-on experience with Java, Python, React.js, Node.js, PostgreSQL, and MongoDB. Additionally, I am skilled in CI/CD pipelines, containerization, and cloud platforms like AWS and Azure.
+      <Head>
+        <title>About Me | Harsha Kumarasingha</title>
+        <meta name="description" content="Learn more about Harsha Kumarasingha - Full Stack Developer and DevOps Engineer" />
+      </Head>
 
-                With a keen interest in modern web technologies, automation, and problem-solving, I am eager to contribute to real-world projects and collaborate with teams to deliver innovative solutions. Always open to learning and improving, I strive to enhance my technical and professional skills in a dynamic environment.
-              </p>
-              <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                I believe in continuous learning and staying updated with the latest
-                technologies to deliver efficient and scalable solutions.
-              </p>
-            </div>
-          </motion.div>
+      <main>
+        {/* About Hero Section */}
+        <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col lg:flex-row items-center gap-16">
+              {/* Image */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="w-full lg:w-1/3"
+              >
+                <div className="relative w-full h-96 md:h-[500px] overflow-hidden rounded-xl shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-transparent z-10" />
+                  <Image 
+                    src="/images/profile-artistic.jpg"
+                    alt="Harsha Kumarasingha"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </motion.div>
 
-          {/* Education Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-16"
-          >
-            <h2 className={`text-4xl font-bold mb-12 ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-              Education
-            </h2>
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className={`absolute left-0 w-0.5 h-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
-              
-              {/* Education Items */}
-              <div className="space-y-12">
-                {/* Bachelor's Degree */}
-                <div className="relative pl-8">
-                  {/* Timeline Dot */}
-                  <div className={`absolute left-[-8px] w-4 h-4 rounded-full ${
-                    darkMode ? 'bg-blue-500' : 'bg-black'
-                  } border-4 ${darkMode ? 'border-black' : 'border-white'}`}></div>
+              {/* Text Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="w-full lg:w-2/3"
+              >
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">About Me</h1>
+                
+                <div className="space-y-6 text-gray-300">
+                  <p className="text-xl">
+                    I'm a passionate Full Stack Developer and DevOps Engineer with a focus on building modern web applications and implementing DevOps practices.
+                  </p>
                   
-                  <div className={`${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-                    <h3 className="text-2xl font-bold mb-2">
-                      Bachelor Of Science In Software Engineering
-                    </h3>
-                    <p className={`text-lg mb-2 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                      2022-2026 | CINEC Campus (CINEC)
-                    </p>
-                    <p className={`text-lg ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Relevant courses included Data Structures and Algorithms, Computer
-                      Systems Engineering,Database Management Systems,Web Development,and Artificial Intelligence.
-                    </p>
+                  <p>
+                    I'm currently pursuing my BSc in Software Engineering at CINEC Campus, where I'm developing my skills in both frontend and backend development, as well as DevOps practices. While I don't have professional work experience yet, I've been actively building personal projects to apply and enhance my technical skills.
+                  </p>
+                  
+                  <p>
+                    I'm always eager to learn new technologies and improve my skills. The fast-paced nature of the tech industry keeps me motivated to stay updated with the latest trends and best practices.
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                    <div>
+                      <h3 className="text-purple-400 font-medium mb-2">Education</h3>
+                      <ul className="space-y-2">
+                        <li>BSc in Software Engineering, CINEC Campus (Current)</li>
+                        <li>Self-taught in various programming languages and frameworks</li>
+                        <li>Online certifications in web development and DevOps</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 className="text-purple-400 font-medium mb-2">Personal Projects</h3>
+                      <ul className="space-y-2">
+                        <li>Portfolio Website - Built with Next.js and Tailwind CSS</li>
+                        <li>Learning Management System - Full stack application</li>
+                        <li>Job Hub Website - Job search platform with advanced features</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
 
-                {/* Master's Degree */}
-                <div className="relative pl-8">
-                  {/* Timeline Dot */}
-                  <div className={`absolute left-[-8px] w-4 h-4 rounded-full ${
-                    darkMode ? 'bg-blue-500' : 'bg-black'
-                  } border-4 ${darkMode ? 'border-black' : 'border-white'}`}></div>
-                  
-                  <div className={`${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-                    <h3 className="text-2xl font-bold mb-2">
-                      Advance Level 
-                    </h3>
-                    <p className={`text-lg mb-2 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                      2015-2017 | Badulla Central College
-                    </p>
-                    <p className={`text-lg ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Mathematics, Physics, Chemistry, English.
-                    </p>
+        {/* Skills Section */}
+        <Skills />
+
+        {/* Timeline Section */}
+        <section className="py-20 bg-gray-900">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl font-bold text-white mb-4">My Journey</h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                My educational path in Software Engineering.
+              </p>
+            </motion.div>
+
+            <div className="relative max-w-3xl mx-auto">
+              {/* Vertical Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-purple-700/30" />
+
+              {[
+                {
+                  year: "Present",
+                  title: "Software Engineering Student",
+                  description: "Currently pursuing my BSc in Software Engineering at CINEC Campus, focusing on modern development practices and technologies."
+                },
+                {
+                  year: "2022",
+                  title: "Started BSc in Software Engineering",
+                  description: "Began my academic journey at CINEC Campus, taking the first step toward a career in software development."
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className={`relative z-10 mb-16 flex items-center ${
+                    index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                  }`}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  {/* Content */}
+                  <div className={`w-1/2 px-4 ${index % 2 === 0 ? "text-right" : "text-left"}`}>
+                    <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
+                      <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                      <p className="text-purple-400 font-medium mb-2">{item.year}</p>
+                      <p className="text-gray-400">{item.description}</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
 
-          {/* Technology Stack Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h2 className={`text-4xl font-bold mb-12 ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-              Technology Stack
-            </h2>
-            <div className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-lg shadow-lg p-8`}>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-                {technologies.map((tech) => (
-                  <motion.a
-                    key={tech.name}
-                    href={tech.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex flex-col items-center justify-center p-4 rounded-lg transition-all duration-300 
-                      ${tech.bgHover} hover:shadow-lg group ${darkMode ? 'hover:bg-opacity-20' : ''}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <tech.icon
-                      className={`text-4xl mb-2 transition-colors duration-300`}
-                      style={{ color: tech.color }}
-                    />
-                    <span
-                      className={`text-sm transition-colors duration-300 ${
-                        darkMode ? 'text-gray-300 group-hover:text-gray-100' : 'text-gray-600 group-hover:text-black'
-                      }`}
-                    >
-                      {tech.name}
-                    </span>
-                  </motion.a>
-                ))}
-              </div>
+                  {/* Circle */}
+                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                    <div className="w-5 h-5 rounded-full bg-purple-600 border-4 border-gray-900" />
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
-        </div>
-      </div>
+          </div>
+        </section>
+      </main>
     </Layout>
   );
 } 

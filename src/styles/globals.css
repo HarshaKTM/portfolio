@@ -2,12 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base styles for light and dark mode */
 @layer base {
+  :root {
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ffffff;
+    --color-text-primary: #111827;
+    --color-text-secondary: #4b5563;
+    --color-accent: #6366f1;
+  }
+
+  :root.dark {
+    --color-bg-primary: #111827;
+    --color-bg-secondary: #1f2937;
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-accent: #818cf8;
+  }
+
   body {
-    @apply antialiased transition-colors duration-200;
+    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white;
+    @apply antialiased transition-colors duration-300;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+  }
+
+  .dark {
+    color-scheme: dark;
   }
 }
 
+/* Component styles */
 @layer components {
   .nav-link {
     @apply transition-colors;
@@ -42,24 +67,51 @@
   .magic-button:hover::before {
     @apply opacity-100;
   }
+  
+  /* Gemini-style animation backgrounds */
+  .bg-radial-gradient-dark {
+    background: radial-gradient(circle at center, rgba(79, 70, 229, 0.15) 0%, rgba(17, 24, 39, 0.95) 70%, rgba(0, 0, 0, 1) 100%);
+  }
+
+  /* Custom scrollbar for music player */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(75, 85, 99, 0.2);
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.5);
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.7);
+  }
 }
 
-/* Add smooth transitions */
+/* Smooth transitions for theme changes */
 * {
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
+/* Stronger theme specific backgrounds */
 .dark {
-  @apply bg-black text-gray-100;
+  @apply bg-gray-900 text-gray-100;
 }
 
 .light {
-  @apply bg-gray-50 text-black;
+  @apply bg-gray-50 text-gray-900;
 }
 
+/* Specific component theming */
 /* Dark mode specific styles */
-.dark .card {
-  @apply bg-gray-900 border-gray-800;
+.dark .card,
+.dark .bg-white {
+  @apply bg-gray-800 border-gray-700;
 }
 
 .dark .button {
@@ -67,16 +119,16 @@
 }
 
 .dark .input {
-  @apply bg-gray-900 border-gray-700;
+  @apply bg-gray-800 border-gray-700;
 }
 
-/* Add these to your existing dark mode styles */
+/* Project card theme styles */
 .dark .project-card {
-  @apply bg-gray-900 border-gray-800 shadow-xl;
+  @apply bg-gray-800 border-gray-700 shadow-xl;
 }
 
 .dark .project-card:hover {
-  @apply bg-gray-800;
+  @apply bg-gray-700;
   transform: translateY(-2px);
 }
 
@@ -96,7 +148,7 @@
   @apply text-gray-300 hover:text-gray-100;
 }
 
-/* Add any custom styles below */
+/* Typewriter styles */
 .typewriter-wrapper {
   @apply font-bold;
 }
@@ -117,7 +169,7 @@
   100% { opacity: 1; }
 }
 
-/* Improve button hover states */
+/* Hover effects */
 .group:hover .group-hover\:translate-x-1 {
   transform: translateX(0.25rem);
 }

@@ -5,126 +5,168 @@ import { FiTwitter, FiGithub, FiLinkedin, FiInstagram, FiMenu, FiX } from 'react
 import { FaPinterest } from 'react-icons/fa';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { useTheme } from '../context/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+// Dynamically import components with no SSR
+const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false });
+const Clock = dynamic(() => import('./Clock'), { ssr: false });
+const MusicPlayer = dynamic(() => import('./MusicPlayer'), { ssr: false });
 
 export default function Navigation() {
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { theme, mounted } = useTheme();
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollY } = useScroll();
 
   const isActive = (path) => router.pathname === path;
 
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-
+    
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Smooth scroll to section
+  const scrollToSection = (sectionId) => {
+    setIsMobileMenuOpen(false);
+    
+    // If not on home page, navigate to home page first
+    if (router.pathname !== '/') {
+      router.push('/').then(() => {
+        setTimeout(() => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300);
+      });
+    } else {
+      // Already on home page, just scroll
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/projects', label: 'Projects' },
-    { path: '/articles', label: 'Articles' }
+    { path: '/', label: 'Home', action: null },
+    { path: '/about', label: 'About', action: null },
+    { path: '#terminal', label: 'DevOps', action: () => scrollToSection('terminal') },
+    { path: '#projects', label: 'Projects', action: () => scrollToSection('projects') },
+    { path: '#skills', label: 'Skills', action: () => scrollToSection('skills') },
+    { path: '/articles', label: 'Articles', action: null }
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? `${darkMode ? 'bg-black/90 shadow-lg backdrop-blur-sm' : 'bg-white/90 shadow-lg backdrop-blur-sm'}` 
-        : `${darkMode ? 'bg-black' : 'bg-white'}`
-    }`}>
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-20">
-          {/* Left side - Logo */}
-          <Link href="/" className="text-2xl font-bold">
-            <div className={`w-12 h-12 ${
-              darkMode ? 'bg-white text-black' : 'bg-black text-white'
-            } rounded-full flex items-center justify-center transition-colors duration-300`}>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-gray-900/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg' 
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-bold text-white">
+            <div className="w-12 h-12 bg-purple-600 dark:bg-purple-700 text-white rounded-full flex items-center justify-center transition-colors duration-300">
               HK
             </div>
           </Link>
 
-          {/* Center - Navigation Links (Desktop) */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map(({ path, label }) => (
-              <Link 
-                key={path}
-                href={path}
-                className={`relative px-2 py-1 transition-colors duration-300 ${
-                  darkMode 
-                    ? 'text-gray-100 hover:text-white' 
-                    : 'text-gray-800 hover:text-black'
-                } ${isActive(path) ? 'font-bold' : ''}`}
-              >
-                <span>{label}</span>
-                {isActive(path) && (
-                  <span className={`absolute bottom-0 left-0 w-full h-0.5 ${
-                    darkMode ? 'bg-blue-500' : 'bg-black'
-                  }`}></span>
-                )}
-              </Link>
+            {navLinks.map(({ path, label, action }) => (
+              action ? (
+                <button 
+                  key={path}
+                  onClick={action}
+                  className={`relative px-2 py-1 text-gray-300 hover:text-white transition-colors duration-300 ${
+                    (path === '#projects' || path === '#terminal' || path === '#skills') && router.pathname === '/' ? 'font-bold' : ''
+                  }`}
+                >
+                  <span>{label}</span>
+                  {(path === '#projects' || path === '#terminal' || path === '#skills') && router.pathname === '/' && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500"></span>
+                  )}
+                </button>
+              ) : (
+                <Link 
+                  key={path}
+                  href={path}
+                  className={`relative px-2 py-1 text-gray-300 hover:text-white transition-colors duration-300 ${
+                    isActive(path) ? 'font-bold' : ''
+                  }`}
+                >
+                  <span>{label}</span>
+                  {isActive(path) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500"></span>
+                  )}
+                </Link>
+              )
             ))}
           </div>
 
-          {/* Right side - Social Links & Theme Toggle (Desktop) */}
-          <div className="hidden md:flex items-center">
-            <div className="flex items-center space-x-6">
-              {/* Social icons */}
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-blue-400 transition-colors`}>
-                <FiTwitter size={24} />
-              </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-gray-300 transition-colors`}>
-                <FiGithub size={24} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-blue-400 transition-colors`}>
-                <FiLinkedin size={24} />
-              </a>
-              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-red-500 transition-colors`}>
-                <FaPinterest size={24} />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-pink-500 transition-colors`}>
-                <FiInstagram size={24} />
-              </a>
+          {/* Right side - Clock, MusicPlayer, Social Links & Theme Toggle (Desktop) */}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Clock Component */}
+            <div className="mr-2">
+              {mounted && <Clock />}
             </div>
-
-            <div className={`mx-8 h-8 w-px ${darkMode ? 'bg-gray-700' : 'bg-gray-300'}`}></div>
-
-            <button 
-              onClick={toggleDarkMode}
-              className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-yellow-400 transition-colors p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800`}
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? <BsFillSunFill size={24} /> : <BsFillMoonFill size={24} />}
-            </button>
+            
+            {/* Music Player */}
+            <div className="mr-2">
+              {mounted && <MusicPlayer />}
+            </div>
+          
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300 transition-colors">
+              <FiTwitter size={20} />
+            </a>
+            <a href="https://github.com/HarshaKTM" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300 transition-colors">
+              <FiGithub size={20} />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300 transition-colors">
+              <FiLinkedin size={20} />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300 transition-colors">
+              <FiInstagram size={20} />
+            </a>
+            
+            <div className="ml-4">
+              {mounted && <ThemeToggle />}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            <button 
-              onClick={toggleDarkMode}
-              className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-yellow-400 transition-colors p-2`}
+          <button
+            className="md:hidden text-gray-300 hover:text-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              {darkMode ? <BsFillSunFill size={24} /> : <BsFillMoonFill size={24} />}
-            </button>
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`p-2 ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}
-            >
-              {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-            </button>
-          </div>
+              {isMobileMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
 
         {/* Mobile Menu */}
@@ -135,44 +177,61 @@ export default function Navigation() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className={`md:hidden ${darkMode ? 'bg-black' : 'bg-white'}`}
+              className="md:hidden bg-gray-900"
             >
               <div className="flex flex-col items-center space-y-4 py-6">
-                {navLinks.map(({ path, label }) => (
-                  <Link
-                    key={path}
-                    href={path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`px-4 py-2 w-full text-center ${
-                      darkMode 
-                        ? 'text-gray-100 hover:bg-gray-800' 
-                        : 'text-gray-800 hover:bg-gray-100'
-                    } ${isActive(path) ? 'font-bold' : ''}`}
-                  >
-                    {label}
-                  </Link>
+                {navLinks.map(({ path, label, action }) => (
+                  action ? (
+                    <button
+                      key={path}
+                      onClick={action}
+                      className={`px-4 py-2 w-full text-center text-gray-300 hover:bg-gray-800 ${
+                        (path === '#projects' || path === '#terminal' || path === '#skills') && router.pathname === '/' ? 'font-bold' : ''
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ) : (
+                    <Link
+                      key={path}
+                      href={path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`px-4 py-2 w-full text-center text-gray-300 hover:bg-gray-800 ${
+                        isActive(path) ? 'font-bold' : ''
+                      }`}
+                    >
+                      {label}
+                    </Link>
+                  )
                 ))}
                 
-                {/* Social Links for Mobile */}
+                {/* Clock and MusicPlayer for mobile */}
+                <div className="flex items-center space-x-4 pt-2">
+                  {mounted && <Clock />}
+                  {mounted && <MusicPlayer />}
+                </div>
+                
+                {/* Theme toggle and social links for mobile */}
                 <div className="flex items-center space-x-6 pt-4">
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-blue-400`}>
-                    <FiTwitter size={24} />
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300">
+                    <FiTwitter size={20} />
                   </a>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-gray-300`}>
-                    <FiGithub size={24} />
+                  <a href="https://github.com/HarshaKTM" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300">
+                    <FiGithub size={20} />
                   </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-blue-400`}>
-                    <FiLinkedin size={24} />
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300">
+                    <FiLinkedin size={20} />
                   </a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={`${darkMode ? 'text-gray-100' : 'text-gray-600'} hover:text-pink-500`}>
-                    <FiInstagram size={24} />
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300">
+                    <FiInstagram size={20} />
                   </a>
+                  {mounted && <ThemeToggle />}
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 } 

@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
-import { FiSearch, FiClock, FiTag, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { FiSearch, FiClock, FiTag, FiPlus, FiTrash2, FiRss, FiBookOpen, FiServer, FiCloud, FiShield, FiGitBranch } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
 import Link from 'next/link';
 import ArticleForm from '../components/ArticleForm';
 import { initialArticles } from '../data/articles';
+import Head from 'next/head';
+import ArticlesList from '../sections/ArticlesList';
+import LinkedInArticles from '../components/LinkedInArticles';
 
 export default function Articles() {
   const { darkMode } = useTheme();
@@ -52,207 +55,147 @@ export default function Articles() {
 
   return (
     <Layout>
-      <div className={`min-h-screen ${darkMode ? 'bg-black' : 'bg-gray-50'}`}>
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          {/* Add Article Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-end mb-8"
-          >
-            <button
-              onClick={() => setShowForm(true)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg ${
-                darkMode 
-                  ? 'bg-blue-500 hover:bg-blue-600' 
-                  : 'bg-blue-600 hover:bg-blue-700'
-              } text-white transition-colors`}
-            >
-              <FiPlus />
-              <span>Create Article</span>
-            </button>
-          </motion.div>
+      <Head>
+        <title>DevOps Articles | Harsha Kumarasingha</title>
+        <meta name="description" content="Explore my DevOps articles covering Kubernetes, CI/CD, Infrastructure as Code, and more." />
+      </Head>
 
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <h1 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
-              Articles & Insights
-            </h1>
-            <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Explore technical articles, tutorials, and insights about software development
-            </p>
-          </motion.div>
-
-          {/* Search and Filter Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-12"
-          >
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
-              {/* Search Bar */}
-              <div className="relative w-full md:w-1/2">
-                <FiSearch className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
-                  darkMode ? 'text-gray-400' : 'text-gray-500'
-                }`} />
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-2 rounded-lg ${
-                    darkMode 
-                      ? 'bg-gray-800 text-gray-100 border-gray-700' 
-                      : 'bg-white text-gray-800 border-gray-200'
-                  } border focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
-              </div>
-
-              {/* Category Filter */}
-              <div className="flex gap-2 flex-wrap justify-center">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full transition-colors ${
-                      selectedCategory === category
-                        ? darkMode 
-                          ? 'bg-blue-500 text-white'
-                          : 'bg-blue-600 text-white'
-                        : darkMode
-                          ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article, index) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative rounded-lg overflow-hidden shadow-lg ${
-                  darkMode ? 'bg-gray-800' : 'bg-white'
-                } group hover:shadow-xl transition-all duration-300`}
-              >
-                {/* Delete Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleDeleteArticle(article.id);
-                  }}
-                  className={`absolute top-2 right-2 p-2 rounded-full ${
-                    darkMode 
-                      ? 'bg-gray-700 hover:bg-red-500' 
-                      : 'bg-white hover:bg-red-500'
-                  } hover:text-white transition-colors z-10 opacity-0 group-hover:opacity-100`}
-                >
-                  <FiTrash2 />
-                </button>
-
-                <Link href={`/articles/${article.id}`}>
-                  <div className="cursor-pointer transform transition-transform duration-300 hover:scale-[1.02]">
-                    <div className="relative">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className={`absolute inset-0 ${
-                        darkMode ? 'bg-black' : 'bg-white'
-                      } opacity-0 group-hover:opacity-20 transition-opacity duration-300`}/>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-4 mb-4">
-                        <span className={`text-sm flex items-center gap-1 ${
-                          darkMode ? 'text-gray-400' : 'text-gray-600'
-                        }`}>
-                          <FiClock className="inline" />
-                          {article.readTime}
-                        </span>
-                        <span className={`text-sm flex items-center gap-1 ${
-                          darkMode ? 'text-gray-400' : 'text-gray-600'
-                        }`}>
-                          <FiTag className="inline" />
-                          {article.category}
-                        </span>
-                      </div>
-                      <h2 className={`text-xl font-bold mb-2 ${
-                        darkMode ? 'text-gray-100' : 'text-gray-800'
-                      } group-hover:text-blue-500 transition-colors`}>
-                        {article.title}
-                      </h2>
-                      <p className={`mb-4 ${
-                        darkMode ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
-                        {article.excerpt}
-                      </p>
-                      <div className="flex items-center space-x-2">
-                        <span
-                          className={`text-sm font-semibold ${
-                            darkMode 
-                              ? 'text-blue-400 group-hover:text-blue-300' 
-                              : 'text-blue-600 group-hover:text-blue-700'
-                          } transition-colors`}
-                        >
-                          Read More
-                        </span>
-                        <motion.span
-                          initial={{ x: 0 }}
-                          animate={{ x: 5 }}
-                          transition={{
-                            duration: 0.3,
-                            repeat: Infinity,
-                            repeatType: "reverse"
-                          }}
-                        >
-                          →
-                        </motion.span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
-            ))}
-          </div>
-
-          {/* Article Form Modal */}
-          {showForm && (
-            <ArticleForm
-              onClose={() => setShowForm(false)}
-              onSubmit={handleCreateArticle}
-            />
-          )}
-
-          {/* No Results Message */}
-          {filteredArticles.length === 0 && (
+      <main className="pt-16 pb-24">
+        {/* Hero Section */}
+        <section className="pt-32 pb-16 bg-gradient-to-b from-gray-900 to-gray-800">
+          <div className="container mx-auto px-4">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center max-w-3xl mx-auto"
             >
-              <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                No articles found matching your search criteria.
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                DevOps Articles & Publications
+              </h1>
+              <p className="text-xl text-gray-300 mb-8">
+                Sharing knowledge and insights on DevOps practices, cloud technologies, and infrastructure automation.
               </p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+              >
+                <a 
+                  href="#articles" 
+                  className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-colors inline-block"
+                >
+                  Browse Articles
+                </a>
+              </motion.div>
             </motion.div>
-          )}
-        </div>
-      </div>
+          </div>
+        </section>
+        
+        {/* Articles Section */}
+        <section id="articles" className="py-20 bg-gray-50 dark:bg-gray-900">
+          <div className="container mx-auto px-4">
+            <ArticlesList />
+          </div>
+        </section>
+        
+        {/* LinkedIn Articles Section */}
+        <section className="py-20 bg-white dark:bg-gray-800">
+          <div className="container mx-auto px-4">
+            <LinkedInArticles />
+          </div>
+        </section>
+        
+        {/* Topics Section */}
+        <section className="py-20 bg-gray-50 dark:bg-gray-900">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold mb-6">Topics I Write About</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400">
+                My articles cover a range of DevOps and cloud-native topics, focusing on practical solutions to real-world challenges.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {topics.map((topic, index) => (
+                <motion.div
+                  key={topic.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6">
+                    {topic.icon}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{topic.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{topic.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Newsletter Section */}
+        <section className="py-20 bg-purple-700">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold text-white mb-6">Stay Updated</h2>
+              <p className="text-lg text-purple-200 mb-8">
+                Subscribe to my newsletter to receive notifications when I publish new articles and tutorials.
+              </p>
+              <form className="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-3 bg-purple-900 hover:bg-purple-950 text-white rounded-lg transition-colors"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
     </Layout>
   );
-} 
+}
+
+// Topics data
+const topics = [
+  {
+    name: "Kubernetes & Container Orchestration",
+    description: "Deployment strategies, cluster management, operators, and best practices for running applications on Kubernetes.",
+    icon: <FiServer size={24} />
+  },
+  {
+    name: "CI/CD Pipelines",
+    description: "Building efficient, secure, and automated pipelines for continuous integration and delivery of applications.",
+    icon: <FiGitBranch size={24} />
+  },
+  {
+    name: "Infrastructure as Code",
+    description: "Managing cloud infrastructure with Terraform, CloudFormation, and other IaC tools for reproducible environments.",
+    icon: <FiCloud size={24} />
+  },
+  {
+    name: "DevSecOps",
+    description: "Integrating security practices throughout the development lifecycle without sacrificing speed or agility.",
+    icon: <FiShield size={24} />
+  },
+  {
+    name: "Cloud-Native Architecture",
+    description: "Designing and implementing scalable, resilient applications using cloud-native principles and technologies.",
+    icon: <FiRss size={24} />
+  },
+  {
+    name: "Technical Tutorials",
+    description: "Step-by-step guides for implementing DevOps tools and practices in real-world scenarios.",
+    icon: <FiBookOpen size={24} />
+  }
+]; 
