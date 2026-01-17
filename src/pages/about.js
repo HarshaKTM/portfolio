@@ -9,7 +9,6 @@ import {
 } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 import Head from 'next/head';
-import Skills from '../sections/Skills';
 import Image from 'next/image';
 
 const technologies = [
@@ -235,9 +234,6 @@ export default function About() {
           </div>
         </section>
 
-        {/* Skills Section */}
-        <Skills />
-
         {/* Timeline Section */}
         <section className="py-20 bg-gray-900">
           <div className="container mx-auto px-4">
@@ -269,7 +265,7 @@ export default function About() {
                   year: "Apr 2025 - Sep 2025",
                   title: "Software Engineering Intern",
                   company: "CIMA Company",
-                  description: "6-month internship focusing on software development, CI/CD pipeline integration, and gaining hands-on experience with modern development practices and cloud technologies."
+                  description: "6-month internship focusing on full-stack web development, building RESTful APIs, and working with React and Node.js. Collaborated with cross-functional teams to deliver quality software solutions."
                 },
                 {
                   year: "2022 - 2025",
