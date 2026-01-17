@@ -12,27 +12,28 @@ const Contact = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [submitError, setSubmitError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
+    // Clear previous messages when user starts typing again
+    if (submitMessage || submitError) {
+      setSubmitMessage('');
+      setSubmitError('');
+    }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // We don't need to prevent default since we want the form to actually submit
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // We'll leave this here, but the actual form will be submitted to Formspree
+    // and the page will be redirected there and back, so this won't actually be used
+    // unless there's a client-side validation error
     setTimeout(() => {
       setIsSubmitting(false);
-      setSubmitMessage('Thanks for your message! I\'ll get back to you soon.');
-      setFormState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-    }, 1500);
+    }, 2000);
   };
 
   return (
@@ -127,7 +128,13 @@ const Contact = () => {
           >
             <h3 className="text-2xl font-semibold text-white mb-8">Send Message</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Using standard HTML form approach with Formspree */}
+            <form 
+              action="https://formspree.io/f/myyqvboe" 
+              method="POST"
+              className="space-y-6"
+              onSubmit={handleSubmit}
+            >
               <div>
                 <label htmlFor="name" className="block text-gray-400 mb-2">Name</label>
                 <input
@@ -180,6 +187,11 @@ const Contact = () => {
                 ></textarea>
               </div>
               
+              {/* Add a honeypot field to prevent spam */}
+              <div className="hidden">
+                <input type="text" name="_gotcha" />
+              </div>
+              
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
@@ -198,6 +210,16 @@ const Contact = () => {
                   className="text-green-400 mt-4"
                 >
                   {submitMessage}
+                </motion.p>
+              )}
+              
+              {submitError && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 mt-4"
+                >
+                  {submitError}
                 </motion.p>
               )}
             </form>

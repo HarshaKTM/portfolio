@@ -131,8 +131,9 @@ const Hero = () => {
               transition={{ delay: 0.5 }}
             >
               <p className="text-xl text-gray-400 mb-8 max-w-2xl">
-                I create beautiful and functional web applications with modern technologies.
-                Passionate about building scalable solutions and learning new technologies.
+                I build scalable, reliable web applications by integrating DevOps automation, optimizing infrastructure,
+                and ensuring high-quality software through comprehensive testing.
+                Passionate about continuous learning and applying new technologies to enhance development and user experiences.
               </p>
             </motion.div>
 

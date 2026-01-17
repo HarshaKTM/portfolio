@@ -9,7 +9,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([
     { 
       type: 'bot', 
-      content: "Hi there! 👋 I'm Harsha's AI assistant. How can I help you today?",
+      content: "Hi there! 👋 I'm Harsha's AI assistant. I can tell you all about Harsha's skills, experience, projects, hobbies, and background. What would you like to know?",
       timestamp: new Date()
     }
   ]);
@@ -85,6 +85,40 @@ const ChatBot = () => {
   const getFallbackResponse = (message) => {
     const messageLower = message.toLowerCase();
     
+    // Who is Harsha
+    if (messageLower.includes('who is harsha') || 
+        messageLower.includes('about harsha') || 
+        messageLower.includes('tell me about harsha') ||
+        messageLower.includes('who are you')) {
+      return "Harsha K Thennakoon is a skilled DevOps Engineer from Sri Lanka with expertise in cloud infrastructure, containerization, and automation. He specializes in Kubernetes, Docker, CI/CD pipelines, and cloud platforms (AWS, Azure, GCP). He has a background in software development and is passionate about infrastructure as code and DevOps best practices. He's multilingual (English and Sinhala) and writes technical articles in both languages. He holds various certifications including AWS DevOps Engineer and CKA. Outside of work, he enjoys photography, hiking, cricket, reading, and cooking Sri Lankan cuisine.";
+    }
+    
+    // Hobbies
+    if (messageLower.includes('hobbies') || 
+        messageLower.includes('interests') || 
+        messageLower.includes('free time') ||
+        messageLower.includes('personal life') ||
+        messageLower.includes('what does harsha enjoy')) {
+      return "Harsha has several hobbies and interests outside of his professional work:\n\n• Photography, especially landscape and nature shots\n• Hiking and outdoor adventures on weekends\n• Cricket (both watching and playing)\n• Reading technology books, science fiction, and personal development literature\n• Cooking Sri Lankan cuisine\n• Exploring new technologies and staying current with industry trends\n• Contributing to open-source projects\n• Writing technical articles in both English and Sinhala\n\nThese activities help him maintain a work-life balance while continuing to grow both personally and professionally.";
+    }
+    
+    // What can Harsha do
+    if (messageLower.includes('what can harsha do') || 
+        messageLower.includes('capabilities') || 
+        messageLower.includes('services') ||
+        messageLower.includes('what does harsha offer') ||
+        messageLower.includes('help with')) {
+      return "Harsha's professional capabilities include:\n\n• Designing and implementing cloud infrastructure with best practices\n• Setting up end-to-end CI/CD pipelines for automated software delivery\n• Building containerized applications and Kubernetes orchestration\n• Infrastructure automation with Terraform and Ansible\n• Configuring comprehensive monitoring and alerting systems\n• Implementing DevSecOps and security best practices\n• Cloud cost optimization while maintaining performance\n• Full-stack development with React/Next.js and Node.js\n• Creating technical documentation and training resources\n• Training teams on DevOps practices and tools\n• Troubleshooting complex infrastructure issues\n• Implementing GitOps workflows for continuous deployment";
+    }
+    
+    // Cultural background
+    if (messageLower.includes('sri lanka') || 
+        messageLower.includes('culture') || 
+        messageLower.includes('background') ||
+        messageLower.includes('where is harsha from')) {
+      return "Harsha is from Sri Lanka, a beautiful island nation in South Asia. This cultural background has shaped his perspective, work ethic, and approach to problem-solving. He's fluent in both English and Sinhala languages, allowing him to connect with diverse teams. His Sri Lankan heritage also influences his interests, including his love for cricket and Sri Lankan cuisine. He brings this multicultural perspective to his work, which enhances his ability to collaborate in global environments.";
+    }
+    
     // DevOps Experience
     if (messageLower.includes('devops') || 
         messageLower.includes('experience') || 
@@ -151,15 +185,16 @@ const ChatBot = () => {
     if (messageLower.includes('education') || 
         messageLower.includes('university') || 
         messageLower.includes('degree') ||
-        messageLower.includes('college')) {
-      return "Harsha has a Bachelor's degree in Computer Science and has completed several professional certifications including AWS Certified DevOps Engineer, Certified Kubernetes Administrator (CKA), and Microsoft Certified: Azure DevOps Engineer Expert.";
+        messageLower.includes('college') ||
+        messageLower.includes('certifications')) {
+      return "Harsha has a Bachelor's degree in Computer Science and has completed several professional certifications including AWS Certified DevOps Engineer, Certified Kubernetes Administrator (CKA), and Microsoft Certified: Azure DevOps Engineer Expert. He constantly updates his knowledge through online courses and professional development programs to stay current with the latest technologies and best practices.";
     }
     
     // Projects
     if (messageLower.includes('project') || 
         messageLower.includes('portfolio') || 
         messageLower.includes('work')) {
-      return "Harsha has worked on numerous projects, including:\n\n• Building scalable Kubernetes clusters for production workloads\n• Implementing GitOps workflows with ArgoCD\n• Designing cost-effective cloud infrastructure\n• Creating self-healing infrastructure solutions\n• Developing monitoring and alerting systems\n\nYou can find more details about his projects on the Portfolio section of this website.";
+      return "Harsha has worked on numerous projects, including:\n\n• Building scalable Kubernetes clusters for production workloads\n• Implementing GitOps workflows with ArgoCD\n• Designing cost-effective cloud infrastructure\n• Creating self-healing infrastructure solutions\n• Developing monitoring and alerting systems\n• Automating deployment pipelines for microservices architectures\n• Setting up multi-region disaster recovery solutions\n• Optimizing cloud resource usage and costs\n• Implementing security best practices for DevOps pipelines\n\nYou can find more details about his projects on the Portfolio section of this website.";
     }
 
     // Articles
@@ -167,7 +202,15 @@ const ChatBot = () => {
         messageLower.includes('blog') || 
         messageLower.includes('publication') ||
         messageLower.includes('write')) {
-      return "Harsha regularly writes technical articles on DevOps practices, cloud infrastructure, and automation. His recent articles include topics like 'Implementing GitOps in Enterprise Environments', 'Cost Optimization Strategies for AWS', and 'Building Self-healing Infrastructure'. You can find all his articles in the Articles section of this website and on his LinkedIn profile.";
+      return "Harsha regularly writes technical articles on DevOps practices, cloud infrastructure, and automation in both English and Sinhala languages. His recent articles include topics like 'Implementing GitOps in Enterprise Environments', 'Docker: Basic to Advanced Concepts', 'Unleashing the Power of DevOps', and 'DevOps Road Map'. He enjoys sharing his knowledge to help others in their DevOps journey. You can find all his articles in the Articles section of this website and on his LinkedIn profile.";
+    }
+
+    // Languages
+    if (messageLower.includes('language') ||
+        messageLower.includes('sinhala') ||
+        messageLower.includes('english') ||
+        messageLower.includes('speak')) {
+      return "Harsha is fluent in both English and Sinhala. This multilingual capability allows him to communicate effectively with diverse teams and audiences. He also writes technical articles in both languages, making his knowledge accessible to a wider audience. His linguistic skills also reflect his cultural background from Sri Lanka and his ability to bridge different cultural contexts in professional settings.";
     }
 
     // Greeting responses
@@ -177,7 +220,7 @@ const ChatBot = () => {
         messageLower === 'hi' || 
         messageLower === 'hello' || 
         messageLower === 'hey') {
-      return "Hello! I'm Harsha's virtual assistant. I can tell you about his skills, experience, projects, or publications. What would you like to know?";
+      return "Hello! I'm Harsha's virtual assistant. I can tell you about his skills, experience, projects, hobbies, or capabilities. What would you like to know?";
     }
 
     // About the website
@@ -188,7 +231,7 @@ const ChatBot = () => {
     }
 
     // Fallback for other questions
-    return "I can provide information about Harsha's DevOps experience, technical skills, projects, articles, education, and contact information. Could you please be more specific about what you'd like to know?";
+    return "I can provide information about Harsha's DevOps experience, technical skills, projects, articles, education, hobbies, and background. Could you please be more specific about what you'd like to know?";
   };
 
   const handleSendMessage = async (e) => {
@@ -345,14 +388,14 @@ const ChatBot = () => {
 
   const handleSuggestedQuestion = (question) => {
     setInputMessage(question);
-    setTimeout(() => handleSendMessage(), 100);
+    handleSendMessage({ preventDefault: () => {} });
   };
 
   const resetChat = () => {
     setMessages([
       { 
         type: 'bot', 
-        content: "Chat has been reset. What would you like to know about Harsha?",
+        content: "Hi there! 👋 I'm Harsha's AI assistant. I can tell you all about Harsha's skills, experience, projects, hobbies, and background. What would you like to know?",
         timestamp: new Date()
       }
     ]);
@@ -362,130 +405,82 @@ const ChatBot = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start">
       {/* Chat toggle button */}
       <motion.button
-        className={`w-12 h-12 rounded-full ${showChat ? 'bg-purple-700' : 'bg-purple-600'} text-white flex items-center justify-center shadow-lg hover:bg-purple-700 transition-colors relative`}
-        onClick={() => setShowChat(prevState => !prevState)}
-        whileHover={{ scale: 1.1 }}
+        onClick={() => setShowChat(!showChat)}
+        className="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-lg"
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={showChat ? "Close chat" : "Open chat"}
       >
-        {showChat ? (
-          <FiX className="text-xl" />
-        ) : (
-          <IoMdChatbubbles className="text-xl" />
-        )}
-        
-        {!hasInteracted && !showChat && (
-          <motion.div 
-            className="absolute -right-2 -top-2 bg-green-500 w-3 h-3 rounded-full"
-            animate={{ 
-              scale: [1, 1.4, 1],
-              backgroundColor: ["#10b981", "#34d399", "#10b981"] 
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        )}
+        {showChat ? <FiX size={24} /> : <IoMdChatbubbles size={24} />}
       </motion.button>
-      
+
       {/* Chat window */}
       <AnimatePresence>
         {showChat && (
           <motion.div
-            className="absolute bottom-16 left-0 w-80 sm:w-96 bg-gray-800 rounded-lg shadow-xl border border-purple-800/20 overflow-hidden"
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden mb-4 w-full max-w-md"
           >
             {/* Chat header */}
-            <div className="bg-gradient-to-r from-purple-700 to-indigo-800 p-3 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                  <IoMdChatbubbles className="text-white text-lg" />
-                </div>
-                <div>
-                  <h3 className="text-white font-medium">Ask Harsha</h3>
-                  <p className="text-purple-200 text-xs">
-                    {useLocalFallback 
-                      ? "Virtual assistant ready to help" 
-                      : "Connected to AI assistant"}
-                  </p>
-                </div>
+            <div className="bg-purple-600 text-white p-4 flex justify-between items-center">
+              <div className="flex items-center">
+                <IoMdChatbubbles className="mr-2" size={20} />
+                <h3 className="font-medium">Chat with Harsha's Assistant</h3>
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  className="text-xs px-2 py-1 bg-purple-600/50 hover:bg-purple-600 rounded-full text-white/80 hover:text-white"
-                  onClick={resetChat}
-                  title="Reset conversation"
-                >
-                  Reset
-                </button>
-                <button 
-                  className="text-white/70 hover:text-white"
-                  onClick={() => setShowChat(false)}
-                  aria-label="Close chat"
-                >
-                  <FiX />
-                </button>
-              </div>
+              <button 
+                onClick={resetChat} 
+                className="text-white/70 hover:text-white"
+                aria-label="Reset chat"
+              >
+                <HiOutlineLightBulb size={18} />
+              </button>
             </div>
 
-            {/* Info banner - only show in local mode */}
-            {useLocalFallback && (
-              <div className="bg-blue-600/20 border-b border-blue-500/20 px-3 py-2 flex items-start gap-2">
-                <FiInfo className="text-blue-400 mt-0.5 flex-shrink-0" />
-                <p className="text-xs text-blue-200">
-                  I'm answering based on pre-programmed information about Harsha's skills, experience, and portfolio.
-                </p>
-              </div>
-            )}
-            
-            {/* Messages container */}
-            <div className="h-80 overflow-y-auto p-4 flex flex-col gap-3 custom-scrollbar">
-              {messages.map((message, index) => (
+            {/* Chat messages */}
+            <div className="h-80 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900">
+              {messages.map((msg, index) => (
                 <div 
-                  key={index}
-                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                  key={index} 
+                  className={`mb-4 ${msg.type === 'user' ? 'text-right' : ''}`}
                 >
                   <div 
-                    className={`max-w-[80%] rounded-2xl p-3 relative ${
-                      message.type === 'user' 
-                        ? 'bg-purple-600 text-white rounded-br-none' 
-                        : message.isError 
-                          ? 'bg-blue-500/20 text-blue-200' 
-                          : 'bg-gray-700 text-gray-100 rounded-bl-none'
+                    className={`inline-block rounded-lg px-4 py-2 max-w-[85%] ${
+                      msg.type === 'user' 
+                        ? 'bg-purple-600 text-white' 
+                        : msg.isError 
+                          ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' 
+                          : 'bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-line">{message.content}</p>
-                    <span className="text-xs opacity-70 mt-1 block text-right">
-                      {formatTimestamp(message.timestamp)}
-                    </span>
+                    {msg.type === 'bot' && msg.isError && (
+                      <FiInfo className="inline-block mr-1 mb-1" />
+                    )}
+                    <div className="whitespace-pre-line">{msg.content}</div>
+                    <div className={`text-xs mt-1 ${
+                      msg.type === 'user' 
+                        ? 'text-purple-200' 
+                        : msg.isError 
+                          ? 'text-red-500/70 dark:text-red-400/70' 
+                          : 'text-gray-500 dark:text-gray-400'
+                    }`}>
+                      {formatTimestamp(msg.timestamp)}
+                    </div>
                   </div>
                 </div>
               ))}
-              
-              {/* Typing indicator */}
               {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-700 text-white rounded-2xl p-3 rounded-bl-none">
-                    <div className="flex gap-1 items-center">
-                      <motion.div 
-                        className="w-2 h-2 bg-gray-400 rounded-full"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 0.5, repeat: Infinity, repeatType: 'loop' }}
-                      />
-                      <motion.div 
-                        className="w-2 h-2 bg-gray-400 rounded-full"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 0.5, repeat: Infinity, repeatType: 'loop', delay: 0.15 }}
-                      />
-                      <motion.div 
-                        className="w-2 h-2 bg-gray-400 rounded-full"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 0.5, repeat: Infinity, repeatType: 'loop', delay: 0.3 }}
-                      />
+                <div className="flex mb-4">
+                  <div className="bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 rounded-lg px-4 py-2">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500 animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
                   </div>
                 </div>
@@ -493,23 +488,35 @@ const ChatBot = () => {
               <div ref={messagesEndRef} />
             </div>
             
-            {/* Suggested questions */}
-            {!hasInteracted && (
-              <div className="px-4 pb-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <HiOutlineLightBulb className="text-yellow-500" />
-                  <p className="text-gray-300 text-sm">Try asking:</p>
-                </div>
+            {/* Suggested Questions */}
+            {messages.length <= 2 && !hasInteracted && (
+              <div className="p-3 bg-purple-50 dark:bg-gray-800 border-t border-purple-100 dark:border-gray-700">
+                <p className="text-xs text-purple-700 dark:text-purple-300 mb-2 font-medium">Suggested Questions:</p>
                 <div className="flex flex-wrap gap-2">
-                  {suggestedQuestions.map((question, index) => (
-                    <button
-                      key={index}
-                      className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 py-1 px-2 rounded-full"
-                      onClick={() => handleSuggestedQuestion(question)}
-                    >
-                      {question}
-                    </button>
-                  ))}
+                  <button 
+                    onClick={() => handleSuggestedQuestion("Who is Harsha K Thennakoon?")}
+                    className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800/30"
+                  >
+                    Who is Harsha?
+                  </button>
+                  <button 
+                    onClick={() => handleSuggestedQuestion("What are Harsha's key skills?")}
+                    className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800/30"
+                  >
+                    Key skills?
+                  </button>
+                  <button 
+                    onClick={() => handleSuggestedQuestion("What are Harsha's hobbies and interests?")}
+                    className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800/30"
+                  >
+                    Hobbies?
+                  </button>
+                  <button 
+                    onClick={() => handleSuggestedQuestion("What professional services can Harsha provide?")}
+                    className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800/30"
+                  >
+                    Services?
+                  </button>
                 </div>
               </div>
             )}

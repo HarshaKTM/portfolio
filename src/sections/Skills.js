@@ -32,6 +32,15 @@ const allIcons = {
   ArgoCD: dynamic(() => import('react-icons/si').then(mod => mod.SiArgo), { ssr: false }),
   Helm: dynamic(() => import('react-icons/si').then(mod => mod.SiHelm), { ssr: false }),
   
+  // QA/Testing Tools
+  Selenium: dynamic(() => import('react-icons/si').then(mod => mod.SiSelenium), { ssr: false }),
+  Postman: dynamic(() => import('react-icons/si').then(mod => mod.SiPostman), { ssr: false }),
+  SonarQube: dynamic(() => import('react-icons/si').then(mod => mod.SiSonarqube), { ssr: false }),
+  Jest: dynamic(() => import('react-icons/si').then(mod => mod.SiJest), { ssr: false }),
+  Cypress: dynamic(() => import('react-icons/si').then(mod => mod.SiCypress), { ssr: false }),
+  TestingLibrary: dynamic(() => import('react-icons/si').then(mod => mod.SiTestinglibrary), { ssr: false }),
+  JUnit: dynamic(() => import('react-icons/si').then(mod => mod.SiJunit5), { ssr: false }),
+  
   // Cloud & Others
   AWS: dynamic(() => import('react-icons/si').then(mod => mod.SiAmazonaws), { ssr: false }),
   GoogleCloud: dynamic(() => import('react-icons/si').then(mod => mod.SiGooglecloud), { ssr: false }),
@@ -78,6 +87,18 @@ const skillsData = [
       { name: "GitHub Actions", iconKey: "GitHubActions", color: "#2088FF", url: "https://github.com/features/actions" },
       { name: "ArgoCD", iconKey: "ArgoCD", color: "#EF7B4D", url: "https://argoproj.github.io/argo-cd/" },
       { name: "Helm", iconKey: "Helm", color: "#0F1689", url: "https://helm.sh/" }
+    ]
+  },
+  {
+    category: "QA & Testing",
+    technologies: [
+      { name: "Selenium", iconKey: "Selenium", color: "#43B02A", url: "https://www.selenium.dev/" },
+      { name: "Postman", iconKey: "Postman", color: "#FF6C37", url: "https://www.postman.com/" },
+      { name: "SonarQube", iconKey: "SonarQube", color: "#4E9BCD", url: "https://www.sonarqube.org/" },
+      { name: "Jest", iconKey: "Jest", color: "#C21325", url: "https://jestjs.io/" },
+      { name: "Cypress", iconKey: "Cypress", color: "#17202C", url: "https://www.cypress.io/" },
+      { name: "Testing Library", iconKey: "TestingLibrary", color: "#E33332", url: "https://testing-library.com/" },
+      { name: "JUnit", iconKey: "JUnit", color: "#25A162", url: "https://junit.org/" }
     ]
   },
   {
