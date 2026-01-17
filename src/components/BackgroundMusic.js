@@ -9,19 +9,19 @@ import { musicEvents, subscribeMusicEvents, dispatchMusicEvent, updateMusicState
 // Helper function to extract YouTube video ID from URL
 const getYouTubeId = (url) => {
   if (!url) return null;
-  
+
   // Match YouTube URL patterns
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
-  
+
   return (match && match[2].length === 11) ? match[2] : null;
 };
 
 // Check if a URL is a YouTube URL
 const isYouTubeUrl = (url) => {
   return url && (
-    url.includes('youtube.com') || 
-    url.includes('youtu.be') || 
+    url.includes('youtube.com') ||
+    url.includes('youtu.be') ||
     url.includes('youtube-nocookie.com')
   );
 };
@@ -41,17 +41,53 @@ const BackgroundMusic = () => {
   const [currentGenre, setCurrentGenre] = useState('all');
   const [youtubePlayer, setYoutubePlayer] = useState(null);
   const [isYouTubeReady, setIsYouTubeReady] = useState(false);
-  
+
   const audioRef = useRef(null);
 
-  // Music tracks organized by genre with more reliable audio sources and YouTube videos
+  // Music tracks organized by genre with YouTube videos
   const musicLibrary = {
-    
     lofi: [
       {
         title: "Lofi Hip Hop Radio",
         artist: "Lofi Girl",
         url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+        duration: "Live",
+        type: "youtube"
+      },
+      {
+        title: "Chill Lofi Study Beats",
+        artist: "Chillhop Music",
+        url: "https://www.youtube.com/watch?v=5yx6BWlEVcY",
+        duration: "1:00:00",
+        type: "youtube"
+      },
+      {
+        title: "Coffee Shop Vibes",
+        artist: "Lofi Geek",
+        url: "https://www.youtube.com/watch?v=lTRiuFIWV54",
+        duration: "3:00:00",
+        type: "youtube"
+      }
+    ],
+    coding: [
+      {
+        title: "Programming Music",
+        artist: "Chill Music Lab",
+        url: "https://www.youtube.com/watch?v=f02mOEt11OQ",
+        duration: "2:00:00",
+        type: "youtube"
+      },
+      {
+        title: "Hacking Music",
+        artist: "TrapMusicHD",
+        url: "https://www.youtube.com/watch?v=YJfTxvGCHDI",
+        duration: "1:00:00",
+        type: "youtube"
+      },
+      {
+        title: "Synthwave Radio",
+        artist: "Synthwave Goose",
+        url: "https://www.youtube.com/watch?v=k3WkJq478To",
         duration: "Live",
         type: "youtube"
       }
@@ -63,6 +99,20 @@ const BackgroundMusic = () => {
         url: "https://www.youtube.com/watch?v=36YnV9STBqc",
         duration: "1:23:45",
         type: "youtube"
+      },
+      {
+        title: "Deep House Mix",
+        artist: "The Grand Sound",
+        url: "https://www.youtube.com/watch?v=ktvTqknDobU",
+        duration: "1:00:00",
+        type: "youtube"
+      },
+      {
+        title: "EDM Gaming Music",
+        artist: "NCS",
+        url: "https://www.youtube.com/watch?v=6_b7RDuLwcI",
+        duration: "1:00:00",
+        type: "youtube"
       }
     ],
     relaxing: [
@@ -72,13 +122,59 @@ const BackgroundMusic = () => {
         url: "https://www.youtube.com/watch?v=77ZozI0rw7w",
         duration: "3:00:00",
         type: "youtube"
+      },
+      {
+        title: "Peaceful Guitar",
+        artist: "Soothing Relaxation",
+        url: "https://www.youtube.com/watch?v=hlWiI4xVXKY",
+        duration: "3:00:00",
+        type: "youtube"
+      },
+      {
+        title: "Rain Sounds",
+        artist: "Relaxing White Noise",
+        url: "https://www.youtube.com/watch?v=mPZkdNFkNps",
+        duration: "10:00:00",
+        type: "youtube"
+      }
+    ],
+    jazz: [
+      {
+        title: "Jazz Cafe Music",
+        artist: "Cafe Music BGM",
+        url: "https://www.youtube.com/watch?v=fEvM-OUbaKs",
+        duration: "3:00:00",
+        type: "youtube"
+      },
+      {
+        title: "Cozy Jazz",
+        artist: "Jazz For Sleep",
+        url: "https://www.youtube.com/watch?v=t684wHG7cno",
+        duration: "3:00:00",
+        type: "youtube"
+      }
+    ],
+    ambient: [
+      {
+        title: "Space Ambient",
+        artist: "Ambient Music",
+        url: "https://www.youtube.com/watch?v=S_MOd40zlYU",
+        duration: "4:00:00",
+        type: "youtube"
+      },
+      {
+        title: "Focus Music",
+        artist: "Greenred Productions",
+        url: "https://www.youtube.com/watch?v=WPni755-Krg",
+        duration: "3:00:00",
+        type: "youtube"
       }
     ]
   };
 
   // Flatten all tracks for continuous play
   const allTracks = Object.values(musicLibrary).flat();
-  
+
   const currentTrack = allTracks[currentTrackIndex];
   const isCurrentTrackYouTube = currentTrack && isYouTubeUrl(currentTrack.url);
   const youtubeVideoId = isCurrentTrackYouTube ? getYouTubeId(currentTrack.url) : null;
@@ -104,11 +200,11 @@ const BackgroundMusic = () => {
     setYoutubePlayer(event.target);
     setIsYouTubeReady(true);
     setIsLoading(false);
-    
+
     try {
       // Set volume
       event.target.setVolume(isMuted ? 0 : volume * 100);
-      
+
       // Auto-play if needed
       if (isPlaying) {
         setTimeout(() => {
@@ -179,7 +275,7 @@ const BackgroundMusic = () => {
     setCurrentGenre(genre);
     // If we switch genre, start with the first track in that genre
     if (genre !== 'all') {
-      setCurrentTrackIndex(allTracks.findIndex(track => 
+      setCurrentTrackIndex(allTracks.findIndex(track =>
         track.url === musicLibrary[genre][0].url));
     }
   }, [allTracks, musicLibrary]);
@@ -224,38 +320,38 @@ const BackgroundMusic = () => {
         reject(new Error('Invalid URL'));
         return;
       }
-      
+
       const audio = new Audio();
       audio.volume = 0; // Silent
-      
+
       const onCanPlay = () => {
         cleanup();
         resolve(true);
       };
-      
+
       const onError = () => {
         cleanup();
         reject(new Error(`Cannot play: ${url}`));
       };
-      
+
       const cleanup = () => {
         audio.removeEventListener('canplaythrough', onCanPlay);
         audio.removeEventListener('error', onError);
         audio.src = '';
       };
-      
+
       audio.addEventListener('canplaythrough', onCanPlay);
       audio.addEventListener('error', onError);
-      
+
       // Set a timeout to avoid hanging
       const timeout = setTimeout(() => {
         cleanup();
         reject(new Error('Timeout testing audio source'));
       }, 5000);
-      
+
       audio.src = url;
       audio.load();
-      
+
       return () => {
         clearTimeout(timeout);
         cleanup();
@@ -265,7 +361,7 @@ const BackgroundMusic = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    
+
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -276,41 +372,41 @@ const BackgroundMusic = () => {
   // Handle audio element events
   useEffect(() => {
     if (!isMounted || !audioRef.current) return;
-    
+
     const audio = audioRef.current;
-    
+
     const handleCanPlay = () => {
       setIsLoading(false);
       setAudioError(null);
       setRetryCount(0);
       console.log("Audio can play now");
     };
-    
+
     const handleLoadStart = () => {
       setIsLoading(true);
       setAudioError(null);
     };
-    
+
     const handleError = async (e) => {
       console.error("Audio error:", e);
       setIsLoading(false);
-      
+
       if (retryCount < 3) {
         // Try the next track automatically
         setRetryCount(prev => prev + 1);
         setAudioError(`Error loading track. Trying next one... (Attempt ${retryCount + 1}/3)`);
-        
+
         try {
           // Try to find a working track
           const genres = Object.keys(musicLibrary);
           let foundWorkingTrack = false;
-          
+
           // First try the next track in the current genre
           const tracks = getCurrentTracks();
           const currentIndexInGenre = tracks.findIndex(track => track.url === currentTrack?.url);
           const nextIndexInGenre = (currentIndexInGenre + 1) % tracks.length;
           const nextTrackToTry = tracks[nextIndexInGenre];
-          
+
           try {
             await testAudioSource(nextTrackToTry.url);
             setTimeout(() => nextTrack(), 1500);
@@ -318,12 +414,12 @@ const BackgroundMusic = () => {
           } catch (error) {
             console.log("Next track also has issues, trying a different genre");
           }
-          
+
           // If that didn't work, try tracks from different genres
           if (!foundWorkingTrack) {
             for (const genre of genres) {
               if (foundWorkingTrack) break;
-              
+
               try {
                 const trackToTest = musicLibrary[genre][0];
                 await testAudioSource(trackToTest.url);
@@ -335,7 +431,7 @@ const BackgroundMusic = () => {
               }
             }
           }
-          
+
           // If we still haven't found a working track, just try next
           if (!foundWorkingTrack) {
             setTimeout(() => nextTrack(), 1500);
@@ -350,12 +446,12 @@ const BackgroundMusic = () => {
         setRetryCount(0);
       }
     };
-    
+
     // Add event listeners
     audio.addEventListener('canplay', handleCanPlay);
     audio.addEventListener('loadstart', handleLoadStart);
     audio.addEventListener('error', handleError);
-    
+
     // Clean up
     return () => {
       audio.removeEventListener('canplay', handleCanPlay);
@@ -367,10 +463,10 @@ const BackgroundMusic = () => {
   // Handle play/pause with better error handling
   useEffect(() => {
     if (!isMounted) return;
-    
+
     if (isPlaying) {
       setIsLoading(true);
-      
+
       if (isCurrentTrackYouTube) {
         // Handle YouTube playback
         if (youtubePlayer && isYouTubeReady) {
@@ -384,9 +480,9 @@ const BackgroundMusic = () => {
       } else if (audioRef.current) {
         // Handle audio playback
         audioRef.current.load();
-        
+
         const playPromise = audioRef.current.play();
-        
+
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
@@ -398,16 +494,16 @@ const BackgroundMusic = () => {
               setIsPlaying(false);
               setIsLoading(false);
               setAudioError(`Couldn't play audio: ${error.message}`);
-              
+
               // Auto show controls on error to help user troubleshoot
               setShowControls(true);
-              
+
               // Try to handle common errors
-              if (error.message.includes("no supported sources") || 
-                  error.message.includes("Failed to load") ||
-                  error.message.includes("NotAllowedError") ||
-                  error.message.includes("NotSupportedError")) {
-                
+              if (error.message.includes("no supported sources") ||
+                error.message.includes("Failed to load") ||
+                error.message.includes("NotAllowedError") ||
+                error.message.includes("NotSupportedError")) {
+
                 // Automatically try the next track
                 setTimeout(() => {
                   nextTrack();
@@ -430,7 +526,7 @@ const BackgroundMusic = () => {
   // Update volume
   useEffect(() => {
     const newVolume = isMuted ? 0 : volume;
-    
+
     if (isCurrentTrackYouTube && youtubePlayer) {
       try {
         youtubePlayer.setVolume(newVolume * 100);
@@ -454,18 +550,18 @@ const BackgroundMusic = () => {
 
   useEffect(() => {
     if (!isMounted) return;
-    
+
     const handleFirstInteraction = () => {
       startAutoPlay();
-      
+
       // Remove event listeners after first interaction
       document.removeEventListener('click', handleFirstInteraction);
       document.removeEventListener('touchstart', handleFirstInteraction);
     };
-    
+
     document.addEventListener('click', handleFirstInteraction);
     document.addEventListener('touchstart', handleFirstInteraction);
-    
+
     return () => {
       document.removeEventListener('click', handleFirstInteraction);
       document.removeEventListener('touchstart', handleFirstInteraction);
@@ -493,13 +589,13 @@ const BackgroundMusic = () => {
       const currentIndexInGenre = tracks.findIndex(track => track.url === currentTrack?.url);
       const nextIndexInGenre = (currentIndexInGenre + 1) % tracks.length;
       const nextTrack = tracks[nextIndexInGenre];
-      
+
       // Create a temporary audio element to prefetch
       const tempAudio = new Audio();
       tempAudio.preload = 'auto';
       tempAudio.volume = 0; // Silent
       tempAudio.src = nextTrack.url;
-      
+
       // Cleanup
       return () => {
         tempAudio.src = '';
@@ -521,7 +617,7 @@ const BackgroundMusic = () => {
   // Listen for global music events
   useEffect(() => {
     if (!isMounted) return;
-    
+
     const unsubscribe = subscribeMusicEvents((eventType, data) => {
       if (eventType === musicEvents.TOGGLE_PLAY) {
         setIsPlaying(prev => !prev);
@@ -530,7 +626,7 @@ const BackgroundMusic = () => {
         dispatchMusicEvent(musicEvents.TRACK_INFO, currentTrack);
       }
     });
-    
+
     return () => {
       unsubscribe();
     };
@@ -554,7 +650,7 @@ const BackgroundMusic = () => {
           Your browser does not support the audio element.
         </audio>
       )}
-      
+
       {/* YouTube player (hidden) */}
       {isCurrentTrackYouTube && youtubeVideoId && (
         <div style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}>
@@ -577,7 +673,7 @@ const BackgroundMusic = () => {
           />
         </div>
       )}
-      
+
       <div className="fixed bottom-4 right-4 z-50">
         <motion.button
           className={`w-12 h-12 rounded-full ${isPlaying ? 'bg-purple-600' : 'bg-purple-600/90'} text-white flex items-center justify-center shadow-lg hover:bg-purple-700 transition-colors relative`}
@@ -587,16 +683,16 @@ const BackgroundMusic = () => {
           aria-label={showControls ? "Hide music controls" : "Show music controls"}
         >
           {isLoading ? (
-            <motion.div 
+            <motion.div
               className="absolute inset-0 rounded-full border-2 border-white border-t-transparent"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             />
           ) : null}
-          
+
           {isCurrentTrackYouTube ? <FaYoutube size={20} /> : <IoMdMusicalNote size={20} />}
         </motion.button>
-        
+
         {/* Music Controls */}
         <AnimatePresence>
           {showControls && (
@@ -616,47 +712,47 @@ const BackgroundMusic = () => {
                   )}
                 </div>
                 <p className="text-gray-400 text-sm truncate">{currentTrack?.artist || "Unknown Artist"}</p>
-                
+
                 {audioError && (
                   <p className="text-red-400 text-xs mt-1">{audioError}</p>
                 )}
               </div>
-              
+
               {/* Controls */}
               <div className="flex items-center justify-between mb-4">
-                <button 
+                <button
                   onClick={prevTrack}
                   className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Previous track"
                 >
                   <IoMdSkipBackward size={24} />
                 </button>
-                
-                <button 
+
+                <button
                   onClick={togglePlay}
                   className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center hover:bg-purple-700 transition-colors"
                   aria-label={isPlaying ? "Pause" : "Play"}
                 >
                   {isPlaying ? <IoMdPause size={24} /> : <IoMdMusicalNote size={24} />}
                 </button>
-                
-                <button 
+
+                <button
                   onClick={nextTrack}
                   className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Next track"
                 >
                   <IoMdSkipForward size={24} />
                 </button>
-                
-                <button 
+
+                <button
                   onClick={toggleMute}
                   className="text-gray-400 hover:text-white transition-colors"
                   aria-label={isMuted ? "Unmute" : "Mute"}
                 >
                   {isMuted ? <HiOutlineVolumeOff size={24} /> : <HiOutlineVolumeUp size={24} />}
                 </button>
-                
-                <button 
+
+                <button
                   onClick={() => setShowPlaylist(!showPlaylist)}
                   className={`text-gray-400 hover:text-white transition-colors ${showPlaylist ? 'text-purple-400' : ''}`}
                   aria-label={showPlaylist ? "Hide playlist" : "Show playlist"}
@@ -664,7 +760,7 @@ const BackgroundMusic = () => {
                   <FaRegListAlt size={20} />
                 </button>
               </div>
-              
+
               {/* Volume Slider */}
               <div className="flex items-center space-x-2">
                 <HiOutlineVolumeOff size={16} className="text-gray-400" />
@@ -688,17 +784,16 @@ const BackgroundMusic = () => {
                 />
                 <IoMdVolumeHigh size={16} className="text-gray-400" />
               </div>
-              
+
               {/* Genre Selector */}
               <div className="mt-4">
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => selectGenre('all')}
-                    className={`px-3 py-1 text-xs rounded-full ${
-                      currentGenre === 'all' 
-                        ? 'bg-purple-600 text-white' 
+                    className={`px-3 py-1 text-xs rounded-full ${currentGenre === 'all'
+                        ? 'bg-purple-600 text-white'
                         : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                    }`}
+                      }`}
                   >
                     All
                   </button>
@@ -706,18 +801,17 @@ const BackgroundMusic = () => {
                     <button
                       key={genre}
                       onClick={() => selectGenre(genre)}
-                      className={`px-3 py-1 text-xs rounded-full capitalize ${
-                        currentGenre === genre 
-                          ? 'bg-purple-600 text-white' 
+                      className={`px-3 py-1 text-xs rounded-full capitalize ${currentGenre === genre
+                          ? 'bg-purple-600 text-white'
                           : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                      }`}
+                        }`}
                     >
                       {genre}
                     </button>
                   ))}
                 </div>
               </div>
-              
+
               {/* Playlist */}
               <AnimatePresence>
                 {showPlaylist && (
@@ -732,16 +826,15 @@ const BackgroundMusic = () => {
                       {getCurrentTracks().map((track, index) => {
                         const trackIndex = allTracks.findIndex(t => t.url === track.url);
                         const isYouTube = isYouTubeUrl(track.url);
-                        
+
                         return (
                           <button
                             key={track.url}
                             onClick={() => selectTrack(trackIndex)}
-                            className={`w-full text-left p-2 rounded flex items-center ${
-                              trackIndex === currentTrackIndex
+                            className={`w-full text-left p-2 rounded flex items-center ${trackIndex === currentTrackIndex
                                 ? 'bg-purple-600/20 text-purple-300'
                                 : 'hover:bg-gray-700/50 text-gray-300'
-                            }`}
+                              }`}
                           >
                             <div className="mr-2">
                               {trackIndex === currentTrackIndex && isPlaying ? (
