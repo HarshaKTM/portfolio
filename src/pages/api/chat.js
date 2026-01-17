@@ -73,7 +73,7 @@ export default async function handler(req, res) {
   // Check if API key is available
   if (!API_KEY || API_KEY === 'your_api_key_here') {
     console.error('Missing or invalid Google API key');
-    return res.status(500).json({ 
+    return res.status(500).json({
       error: 'API configuration error',
       details: 'The Google AI API key is not properly configured'
     });
@@ -82,9 +82,9 @@ export default async function handler(req, res) {
   try {
     // Initialize the API
     const genAI = new GoogleGenerativeAI(API_KEY);
-    
+
     // Access the generative model (Gemini)
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // Start a chat session
     const chat = model.startChat({
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
           parts: [{ text: "Please act as described in the following instructions:" }],
         },
         {
-          role: "model", 
+          role: "model",
           parts: [{ text: "I understand and will follow these instructions." }],
         },
         {
@@ -119,11 +119,11 @@ export default async function handler(req, res) {
     return res.status(200).json({ response });
   } catch (error) {
     console.error('Error communicating with Google AI:', error);
-    
+
     // Create a more informative error message
     let errorMessage = 'Failed to generate response';
     let errorDetails = error.message;
-    
+
     // Handle specific error types
     if (error.message?.includes('API key')) {
       errorMessage = 'API key error';
@@ -135,8 +135,8 @@ export default async function handler(req, res) {
       errorMessage = 'Rate limit exceeded';
       errorDetails = 'The Google AI API rate limit has been reached. Please try again later.';
     }
-    
-    return res.status(500).json({ 
+
+    return res.status(500).json({
       error: errorMessage,
       details: process.env.NODE_ENV === 'development' ? errorDetails : 'Check server logs for details'
     });
