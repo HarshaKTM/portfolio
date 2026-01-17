@@ -267,9 +267,9 @@ export default function About() {
                 },
                 {
                   year: "Apr 2025 - Sep 2025",
-                  title: "DevOps Intern",
+                  title: "Software Engineering Intern",
                   company: "CIMA Company",
-                  description: "6-month internship focusing on CI/CD pipeline development, containerization with Docker, and infrastructure automation. Gained hands-on experience with Jenkins, Kubernetes, and cloud platforms."
+                  description: "6-month internship focusing on software development, CI/CD pipeline integration, and gaining hands-on experience with modern development practices and cloud technologies."
                 },
                 {
                   year: "2022 - 2025",
