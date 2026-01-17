@@ -9,28 +9,28 @@ const GeminiFlowAnimation = dynamic(() => import('../components/GeminiFlowAnimat
 
 // Resume mapping for different roles
 const RESUME_MAPPING = {
-  'Full Stack Developer': {
-    file: '/resumes/Harsha Kumarasingha-SE.pdf',
-    label: 'Download Full Stack CV'
-  },
   'DevOps Engineer': {
     file: '/resumes/Harsha Kumarasingha-DevOps.pdf',
     label: 'Download DevOps CV'
   },
-  'Quality Assurence': {
+  'Cloud Engineer': {
+    file: '/resumes/Harsha Kumarasingha-DevOps.pdf',
+    label: 'Download Cloud CV'
+  },
+  'Full Stack Developer': {
+    file: '/resumes/Harsha Kumarasingha-SE.pdf',
+    label: 'Download Full Stack CV'
+  },
+  'Quality Assurance': {
     file: '/resumes/Harsha Kumarasingha-QA.pdf',
     label: 'Download QA CV'
-  },
-  'Problem Solver & Quick Learner': {
-    file: '/resumes/Harsha-Kumarasingha-General.pdf',
-    label: 'Download Resume'
   }
 };
 
 const Hero = () => {
   const [imageError, setImageError] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [currentRole, setCurrentRole] = useState('Full Stack Developer');
+  const [currentRole, setCurrentRole] = useState('DevOps Engineer');
   const heroRef = useRef(null);
 
   // Track mouse position for parallax effect
@@ -39,16 +39,16 @@ const Hero = () => {
 
     const handleMouseMove = (e) => {
       if (!heroRef.current) return;
-      
+
       const { left, top, width, height } = heroRef.current.getBoundingClientRect();
       const x = (e.clientX - left) / width;
       const y = (e.clientY - top) / height;
-      
+
       setMousePosition({ x, y });
     };
-    
+
     window.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
@@ -59,7 +59,7 @@ const Hero = () => {
     const maxMovement = 20;
     const xMovement = (mousePosition.x - 0.5) * maxMovement * depth;
     const yMovement = (mousePosition.y - 0.5) * maxMovement * depth;
-    
+
     return {
       transform: `translate(${xMovement}px, ${yMovement}px)`,
     };
@@ -67,18 +67,18 @@ const Hero = () => {
 
   // Get current resume info based on role
   const getCurrentResumeInfo = () => {
-    return RESUME_MAPPING[currentRole] || RESUME_MAPPING['Full Stack Developer'];
+    return RESUME_MAPPING[currentRole] || RESUME_MAPPING['DevOps Engineer'];
   };
 
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       ref={heroRef}
       className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-black to-gray-900"
     >
       {/* Google AI Gemini-style flowing line animation */}
       <GeminiFlowAnimation />
-      
+
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-gray-900/20 to-black/40 z-1" />
 
@@ -93,7 +93,7 @@ const Hero = () => {
             className="text-center md:text-left flex-1"
             style={calculateTransform(0.5)}
           >
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-7xl font-bold text-white mb-6"
               animate={{
                 textShadow: ['0 0 15px rgba(139, 92, 246, 0)', '0 0 25px rgba(139, 92, 246, 0.5)', '0 0 15px rgba(139, 92, 246, 0)']
@@ -102,22 +102,22 @@ const Hero = () => {
             >
               Hi, I'm <span className="text-purple-500">Harsha Kumarasingha</span>
             </motion.h1>
-            
+
             <div className="text-3xl md:text-5xl font-semibold text-gray-300 mb-8">
               <TypeAnimation
                 sequence={[
-                  'Full Stack Developer',
-                  2000,
-                  () => setCurrentRole('Full Stack Developer'),
                   'DevOps Engineer',
                   2000,
                   () => setCurrentRole('DevOps Engineer'),
-                  'Quality Assurence',
+                  'Cloud Engineer',
                   2000,
-                  () => setCurrentRole('Quality Assurence'),
-                  'Problem Solver & Quick Learner',
+                  () => setCurrentRole('Cloud Engineer'),
+                  'Full Stack Developer',
                   2000,
-                  () => setCurrentRole('Problem Solver & Quick Learner'),
+                  () => setCurrentRole('Full Stack Developer'),
+                  'Quality Assurance',
+                  2000,
+                  () => setCurrentRole('Quality Assurance'),
                 ]}
                 wrapper="span"
                 speed={50}
@@ -131,9 +131,9 @@ const Hero = () => {
               transition={{ delay: 0.5 }}
             >
               <p className="text-xl text-gray-400 mb-8 max-w-2xl">
-                I build scalable, reliable web applications by integrating DevOps automation, optimizing infrastructure,
-                and ensuring high-quality software through comprehensive testing.
-                Passionate about continuous learning and applying new technologies to enhance development and user experiences.
+                Associate DevOps & Cloud Engineer specializing in infrastructure automation, CI/CD pipelines,
+                containerization with Docker & Kubernetes, and cloud platforms (AWS, GCP, Azure).
+                Building reliable, scalable systems through modern DevOps practices.
               </p>
             </motion.div>
 
@@ -156,7 +156,7 @@ const Hero = () => {
                   download
                 >
                   <span>{getCurrentResumeInfo().label}</span>
-                  <motion.span 
+                  <motion.span
                     className="ml-2"
                     animate={{ y: [0, -3, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
@@ -197,7 +197,7 @@ const Hero = () => {
               className="relative w-full h-full"
             >
               {/* Glow effect */}
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-purple-500/20 rounded-full blur-3xl"
                 animate={{
                   scale: [1, 1.1, 1],
@@ -209,7 +209,7 @@ const Hero = () => {
                   repeatType: "mirror",
                 }}
               />
-              
+
               <div className="relative rounded-full overflow-hidden border-4 border-purple-500/20 w-full h-full">
                 {!imageError ? (
                   <img
@@ -224,7 +224,7 @@ const Hero = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Orbiting particle */}
               <motion.div
                 className="absolute w-6 h-6 rounded-full bg-purple-500/80 shadow-lg shadow-purple-500/50"
@@ -240,7 +240,7 @@ const Hero = () => {
                   ease: "linear",
                 }}
               />
-              
+
               {/* Small orbiting particle */}
               <motion.div
                 className="absolute w-3 h-3 rounded-full bg-indigo-500/80 shadow-lg shadow-indigo-500/50"

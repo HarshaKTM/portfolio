@@ -157,7 +157,7 @@ const technologies = [
 
 export default function About() {
   const { darkMode } = useTheme();
-  
+
   return (
     <Layout>
       <Head>
@@ -179,7 +179,7 @@ export default function About() {
               >
                 <div className="relative w-full h-96 md:h-[500px] overflow-hidden rounded-xl shadow-2xl">
                   <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-transparent z-10" />
-                  <Image 
+                  <Image
                     src="/images/profile-artistic.jpg"
                     alt="Harsha Kumarasingha"
                     fill
@@ -196,35 +196,36 @@ export default function About() {
                 className="w-full lg:w-2/3"
               >
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">About Me</h1>
-                
+
                 <div className="space-y-6 text-gray-300">
                   <p className="text-xl">
-                    I'm a passionate Full Stack Developer and DevOps Engineer with a focus on building modern web applications and implementing DevOps practices.
+                    I'm an Associate DevOps & Cloud Engineer at JAM Entertainment, specializing in infrastructure automation, CI/CD pipelines, and cloud platforms.
                   </p>
-                  
+
                   <p>
-                    I'm currently pursuing my BSc in Software Engineering at CINEC Campus, where I'm developing my skills in both frontend and backend development, as well as DevOps practices. While I don't have professional work experience yet, I've been actively building personal projects to apply and enhance my technical skills.
+                    I completed my BSc in Software Engineering at CINEC Campus, where I developed expertise in DevOps practices, containerization, and full-stack development. My 6-month internship at CIMA Company gave me hands-on experience with CI/CD pipelines, Docker, Kubernetes, and cloud infrastructure.
                   </p>
-                  
+
                   <p>
-                    I'm always eager to learn new technologies and improve my skills. The fast-paced nature of the tech industry keeps me motivated to stay updated with the latest trends and best practices.
+                    I'm passionate about automating infrastructure, building reliable systems, and implementing best practices in DevOps and cloud engineering.
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
                     <div>
-                      <h3 className="text-purple-400 font-medium mb-2">Education</h3>
+                      <h3 className="text-purple-400 font-medium mb-2">Core Expertise</h3>
                       <ul className="space-y-2">
-                        <li>BSc in Software Engineering, CINEC Campus (Current)</li>
-                        <li>Self-taught in various programming languages and frameworks</li>
-                        <li>Online certifications in web development and DevOps</li>
+                        <li>CI/CD Pipelines (Jenkins, GitHub Actions, ArgoCD)</li>
+                        <li>Containerization (Docker, Kubernetes, Helm)</li>
+                        <li>Infrastructure as Code (Terraform, Ansible)</li>
+                        <li>Cloud Platforms (AWS, GCP, Azure)</li>
                       </ul>
                     </div>
                     <div>
-                      <h3 className="text-purple-400 font-medium mb-2">Personal Projects</h3>
+                      <h3 className="text-purple-400 font-medium mb-2">Education</h3>
                       <ul className="space-y-2">
-                        <li>Portfolio Website - Built with Next.js and Tailwind CSS</li>
-                        <li>Learning Management System - Full stack application</li>
-                        <li>Job Hub Website - Job search platform with advanced features</li>
+                        <li>BSc in Software Engineering, CINEC Campus</li>
+                        <li>AWS, Docker & Kubernetes Certifications</li>
+                        <li>DevOps & Cloud Engineering Training</li>
                       </ul>
                     </div>
                   </div>
@@ -249,7 +250,7 @@ export default function About() {
             >
               <h2 className="text-4xl font-bold text-white mb-4">My Journey</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
-                My educational path in Software Engineering.
+                My professional path in DevOps and Cloud Engineering.
               </p>
             </motion.div>
 
@@ -259,21 +260,28 @@ export default function About() {
 
               {[
                 {
-                  year: "Present",
-                  title: "Software Engineering Student",
-                  description: "Currently pursuing my BSc in Software Engineering at CINEC Campus, focusing on modern development practices and technologies."
+                  year: "Oct 2025 - Present",
+                  title: "Associate DevOps & Cloud Engineer",
+                  company: "JAM Entertainment",
+                  description: "Managing cloud infrastructure, implementing CI/CD pipelines, and automating deployment workflows. Working with Docker, Kubernetes, Terraform, and AWS."
                 },
                 {
-                  year: "2022",
-                  title: "Started BSc in Software Engineering",
-                  description: "Began my academic journey at CINEC Campus, taking the first step toward a career in software development."
+                  year: "Apr 2025 - Sep 2025",
+                  title: "DevOps Intern",
+                  company: "CIMA Company",
+                  description: "6-month internship focusing on CI/CD pipeline development, containerization with Docker, and infrastructure automation. Gained hands-on experience with Jenkins, Kubernetes, and cloud platforms."
+                },
+                {
+                  year: "2022 - 2025",
+                  title: "BSc in Software Engineering",
+                  company: "CINEC Campus",
+                  description: "Completed degree with focus on software development, DevOps practices, and cloud technologies. Built multiple projects showcasing full-stack and DevOps skills."
                 }
               ].map((item, index) => (
                 <motion.div
                   key={index}
-                  className={`relative z-10 mb-16 flex items-center ${
-                    index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                  }`}
+                  className={`relative z-10 mb-16 flex items-center ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                    }`}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -283,7 +291,8 @@ export default function About() {
                   <div className={`w-1/2 px-4 ${index % 2 === 0 ? "text-right" : "text-left"}`}>
                     <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
                       <h3 className="text-xl font-semibold text-white">{item.title}</h3>
-                      <p className="text-purple-400 font-medium mb-2">{item.year}</p>
+                      <p className="text-purple-400 font-medium">{item.company}</p>
+                      <p className="text-gray-500 text-sm mb-2">{item.year}</p>
                       <p className="text-gray-400">{item.description}</p>
                     </div>
                   </div>

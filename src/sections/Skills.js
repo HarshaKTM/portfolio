@@ -10,7 +10,7 @@ const allIcons = {
   TailwindCSS: dynamic(() => import('react-icons/si').then(mod => mod.SiTailwindcss), { ssr: false }),
   JavaScript: dynamic(() => import('react-icons/si').then(mod => mod.SiJavascript), { ssr: false }),
   TypeScript: dynamic(() => import('react-icons/si').then(mod => mod.SiTypescript), { ssr: false }),
-  
+
   // Backend
   Nodejs: dynamic(() => import('react-icons/si').then(mod => mod.SiNodedotjs), { ssr: false }),
   Express: dynamic(() => import('react-icons/si').then(mod => mod.SiExpress), { ssr: false }),
@@ -18,7 +18,7 @@ const allIcons = {
   PostgreSQL: dynamic(() => import('react-icons/si').then(mod => mod.SiPostgresql), { ssr: false }),
   Python: dynamic(() => import('react-icons/si').then(mod => mod.SiPython), { ssr: false }),
   Java: dynamic(() => import('react-icons/si').then(mod => mod.SiJava), { ssr: false }),
-  
+
   // DevOps
   Docker: dynamic(() => import('react-icons/si').then(mod => mod.SiDocker), { ssr: false }),
   Kubernetes: dynamic(() => import('react-icons/si').then(mod => mod.SiKubernetes), { ssr: false }),
@@ -31,7 +31,7 @@ const allIcons = {
   Grafana: dynamic(() => import('react-icons/si').then(mod => mod.SiGrafana), { ssr: false }),
   ArgoCD: dynamic(() => import('react-icons/si').then(mod => mod.SiArgo), { ssr: false }),
   Helm: dynamic(() => import('react-icons/si').then(mod => mod.SiHelm), { ssr: false }),
-  
+
   // QA/Testing Tools
   Selenium: dynamic(() => import('react-icons/si').then(mod => mod.SiSelenium), { ssr: false }),
   Postman: dynamic(() => import('react-icons/si').then(mod => mod.SiPostman), { ssr: false }),
@@ -40,7 +40,7 @@ const allIcons = {
   Cypress: dynamic(() => import('react-icons/si').then(mod => mod.SiCypress), { ssr: false }),
   TestingLibrary: dynamic(() => import('react-icons/si').then(mod => mod.SiTestinglibrary), { ssr: false }),
   JUnit: dynamic(() => import('react-icons/si').then(mod => mod.SiJunit5), { ssr: false }),
-  
+
   // Cloud & Others
   AWS: dynamic(() => import('react-icons/si').then(mod => mod.SiAmazonaws), { ssr: false }),
   GoogleCloud: dynamic(() => import('react-icons/si').then(mod => mod.SiGooglecloud), { ssr: false }),
@@ -56,13 +56,37 @@ const allIcons = {
 
 const skillsData = [
   {
-    category: "Frontend",
+    category: "DevOps & Infrastructure",
     technologies: [
-      { name: "React", iconKey: "React", color: "#61DAFB", url: "https://reactjs.org/" },
-      { name: "Next.js", iconKey: "Nextjs", color: "#000000", url: "https://nextjs.org/" },
-      { name: "Tailwind CSS", iconKey: "TailwindCSS", color: "#06B6D4", url: "https://tailwindcss.com/" },
-      { name: "JavaScript", iconKey: "JavaScript", color: "#F7DF1E", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-      { name: "TypeScript", iconKey: "TypeScript", color: "#3178C6", url: "https://www.typescriptlang.org/" }
+      { name: "Docker", iconKey: "Docker", color: "#2496ED", url: "https://www.docker.com/" },
+      { name: "Kubernetes", iconKey: "Kubernetes", color: "#326CE5", url: "https://kubernetes.io/" },
+      { name: "Terraform", iconKey: "Terraform", color: "#7B42BC", url: "https://www.terraform.io/" },
+      { name: "Ansible", iconKey: "Ansible", color: "#EE0000", url: "https://www.ansible.com/" },
+      { name: "Jenkins", iconKey: "Jenkins", color: "#D24939", url: "https://www.jenkins.io/" },
+      { name: "GitHub Actions", iconKey: "GitHubActions", color: "#2088FF", url: "https://github.com/features/actions" },
+      { name: "ArgoCD", iconKey: "ArgoCD", color: "#EF7B4D", url: "https://argoproj.github.io/argo-cd/" },
+      { name: "Helm", iconKey: "Helm", color: "#0F1689", url: "https://helm.sh/" }
+    ]
+  },
+  {
+    category: "Cloud Platforms",
+    technologies: [
+      { name: "AWS", iconKey: "AWS", color: "#FF9900", url: "https://aws.amazon.com/" },
+      { name: "Google Cloud", iconKey: "GoogleCloud", color: "#4285F4", url: "https://cloud.google.com/" },
+      { name: "Azure", iconKey: "Azure", color: "#0078D4", url: "https://azure.microsoft.com/" },
+      { name: "Firebase", iconKey: "Firebase", color: "#FFCA28", url: "https://firebase.google.com/" },
+      { name: "Linux", iconKey: "Linux", color: "#FCC624", url: "https://www.linux.org/" },
+      { name: "Nginx", iconKey: "Nginx", color: "#009639", url: "https://www.nginx.com/" }
+    ]
+  },
+  {
+    category: "Monitoring & Logging",
+    technologies: [
+      { name: "Prometheus", iconKey: "Prometheus", color: "#E6522C", url: "https://prometheus.io/" },
+      { name: "Grafana", iconKey: "Grafana", color: "#F46800", url: "https://grafana.com/" },
+      { name: "ElasticSearch", iconKey: "ElasticSearch", color: "#005571", url: "https://www.elastic.co/elasticsearch/" },
+      { name: "Kibana", iconKey: "Kibana", color: "#00BFB3", url: "https://www.elastic.co/kibana/" },
+      { name: "Logstash", iconKey: "Logstash", color: "#FEC514", url: "https://www.elastic.co/logstash/" }
     ]
   },
   {
@@ -77,16 +101,13 @@ const skillsData = [
     ]
   },
   {
-    category: "DevOps & Infrastructure",
+    category: "Frontend",
     technologies: [
-      { name: "Docker", iconKey: "Docker", color: "#2496ED", url: "https://www.docker.com/" },
-      { name: "Kubernetes", iconKey: "Kubernetes", color: "#326CE5", url: "https://kubernetes.io/" },
-      { name: "Terraform", iconKey: "Terraform", color: "#7B42BC", url: "https://www.terraform.io/" },
-      { name: "Ansible", iconKey: "Ansible", color: "#EE0000", url: "https://www.ansible.com/" },
-      { name: "Jenkins", iconKey: "Jenkins", color: "#D24939", url: "https://www.jenkins.io/" },
-      { name: "GitHub Actions", iconKey: "GitHubActions", color: "#2088FF", url: "https://github.com/features/actions" },
-      { name: "ArgoCD", iconKey: "ArgoCD", color: "#EF7B4D", url: "https://argoproj.github.io/argo-cd/" },
-      { name: "Helm", iconKey: "Helm", color: "#0F1689", url: "https://helm.sh/" }
+      { name: "React", iconKey: "React", color: "#61DAFB", url: "https://reactjs.org/" },
+      { name: "Next.js", iconKey: "Nextjs", color: "#000000", url: "https://nextjs.org/" },
+      { name: "Tailwind CSS", iconKey: "TailwindCSS", color: "#06B6D4", url: "https://tailwindcss.com/" },
+      { name: "JavaScript", iconKey: "JavaScript", color: "#F7DF1E", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+      { name: "TypeScript", iconKey: "TypeScript", color: "#3178C6", url: "https://www.typescriptlang.org/" }
     ]
   },
   {
@@ -100,27 +121,6 @@ const skillsData = [
       { name: "Testing Library", iconKey: "TestingLibrary", color: "#E33332", url: "https://testing-library.com/" },
       { name: "JUnit", iconKey: "JUnit", color: "#25A162", url: "https://junit.org/" }
     ]
-  },
-  {
-    category: "Monitoring & Logging",
-    technologies: [
-      { name: "Prometheus", iconKey: "Prometheus", color: "#E6522C", url: "https://prometheus.io/" },
-      { name: "Grafana", iconKey: "Grafana", color: "#F46800", url: "https://grafana.com/" },
-      { name: "ElasticSearch", iconKey: "ElasticSearch", color: "#005571", url: "https://www.elastic.co/elasticsearch/" },
-      { name: "Kibana", iconKey: "Kibana", color: "#00BFB3", url: "https://www.elastic.co/kibana/" },
-      { name: "Logstash", iconKey: "Logstash", color: "#FEC514", url: "https://www.elastic.co/logstash/" }
-    ]
-  },
-  {
-    category: "Cloud Platforms",
-    technologies: [
-      { name: "AWS", iconKey: "AWS", color: "#FF9900", url: "https://aws.amazon.com/" },
-      { name: "Google Cloud", iconKey: "GoogleCloud", color: "#4285F4", url: "https://cloud.google.com/" },
-      { name: "Azure", iconKey: "Azure", color: "#0078D4", url: "https://azure.microsoft.com/" },
-      { name: "Firebase", iconKey: "Firebase", color: "#FFCA28", url: "https://firebase.google.com/" },
-      { name: "Linux", iconKey: "Linux", color: "#FCC624", url: "https://www.linux.org/" },
-      { name: "Nginx", iconKey: "Nginx", color: "#009639", url: "https://www.nginx.com/" }
-    ]
   }
 ];
 
@@ -128,7 +128,7 @@ const Skills = () => {
   const [mounted, setMounted] = useState(false);
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [clickedSkill, setClickedSkill] = useState(null);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -181,7 +181,7 @@ const Skills = () => {
         >
           <h2 className="text-4xl font-bold text-white mb-4">My Skills</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            I specialize in DevOps engineering and full-stack development, with expertise in infrastructure automation, 
+            I specialize in DevOps engineering and full-stack development, with expertise in infrastructure automation,
             containerization, CI/CD pipelines, monitoring, and cloud platforms.
           </p>
         </motion.div>
@@ -197,8 +197,8 @@ const Skills = () => {
               className="bg-gradient-to-br from-gray-700/70 to-gray-800/70 dark:from-gray-800/70 dark:to-gray-900/70 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-gray-700/30"
             >
               <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-6">{skillCategory.category}</h3>
-              
-              <motion.div 
+
+              <motion.div
                 className="grid grid-cols-2 sm:grid-cols-3 gap-6"
                 variants={container}
                 initial="hidden"
@@ -209,12 +209,12 @@ const Skills = () => {
                   const IconComponent = allIcons[tech.iconKey];
                   const isHovered = hoveredSkill === tech.name;
                   const isClicked = clickedSkill === tech.name;
-                  
+
                   return (
                     <motion.div
                       key={tech.name}
                       variants={item}
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.1,
                         transition: { duration: 0.2 }
                       }}
@@ -236,7 +236,7 @@ const Skills = () => {
                         }
                       }}
                     >
-                      <motion.div 
+                      <motion.div
                         className={`w-20 h-20 rounded-2xl bg-gray-800/80 dark:bg-gray-700/80 flex items-center justify-center shadow-lg ${isHovered ? 'shadow-xl shadow-' + tech.color + '/20' : ''} relative overflow-hidden group`}
                         animate={{
                           backgroundColor: isHovered ? 'rgba(30, 30, 40, 0.9)' : 'rgba(30, 30, 40, 0.5)',
@@ -251,26 +251,26 @@ const Skills = () => {
                         }}
                       >
                         {/* Remove the overlay with link icon on hover */}
-                        
+
                         {IconComponent && (
                           <motion.div
-                            animate={{ 
+                            animate={{
                               scale: isHovered ? 1.2 : 1,
                               rotate: isHovered ? 5 : 0
                             }}
                             transition={{ duration: 0.2 }}
                           >
-                            <IconComponent 
-                              className="w-10 h-10" 
-                              style={{ 
+                            <IconComponent
+                              className="w-10 h-10"
+                              style={{
                                 color: isHovered ? tech.color : 'rgba(255, 255, 255, 0.7)',
                                 filter: isHovered ? 'drop-shadow(0 0 8px ' + tech.color + ')' : 'none'
-                              }} 
+                              }}
                             />
                           </motion.div>
                         )}
                       </motion.div>
-                      <motion.span 
+                      <motion.span
                         className="text-gray-300 font-medium"
                         animate={{
                           color: isHovered ? tech.color : '#d1d5db'
@@ -286,7 +286,7 @@ const Skills = () => {
             </motion.div>
           ))}
         </div>
-        
+
         {/* Skill Meter Section */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -296,7 +296,7 @@ const Skills = () => {
           className="mt-20"
         >
           <h3 className="text-2xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-12">Proficiency</h3>
-          
+
           <div className="space-y-8 max-w-3xl mx-auto">
             {[
               { name: "DevOps & Infrastructure Automation", percentage: 90 },
@@ -308,8 +308,8 @@ const Skills = () => {
               { name: "Backend Development", percentage: 80 },
               { name: "Security & Compliance", percentage: 78 }
             ].map((skill, index) => (
-              <motion.div 
-                key={skill.name} 
+              <motion.div
+                key={skill.name}
                 className="space-y-2"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -321,7 +321,7 @@ const Skills = () => {
                   <span className="text-gray-400 font-semibold">{skill.percentage}%</span>
                 </div>
                 <div className="h-3 w-full bg-gray-700 rounded-full overflow-hidden shadow-inner">
-                  <motion.div 
+                  <motion.div
                     className="h-full rounded-full"
                     style={{
                       background: `linear-gradient(90deg, rgba(139, 92, 246, 0.9) 0%, rgba(236, 72, 153, 0.9) 100%)`
@@ -329,8 +329,8 @@ const Skills = () => {
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.percentage}%` }}
                     viewport={{ once: true }}
-                    transition={{ 
-                      duration: 1.5, 
+                    transition={{
+                      duration: 1.5,
                       delay: 0.2,
                       ease: "easeOut"
                     }}
