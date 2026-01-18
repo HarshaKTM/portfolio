@@ -5,105 +5,91 @@ import { motion } from 'framer-motion';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const quickLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/#projects', label: 'Projects' },
+    { href: '/#contact', label: 'Contact' },
+  ];
+
+  const socialLinks = [
+    { href: 'https://github.com/HarshaKTM', icon: FiGithub, label: 'GitHub' },
+    { href: 'https://twitter.com', icon: FiTwitter, label: 'Twitter' },
+    { href: 'https://linkedin.com', icon: FiLinkedin, label: 'LinkedIn' },
+    { href: 'https://instagram.com', icon: FiInstagram, label: 'Instagram' },
+  ];
+
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950 text-gray-300 py-12">
-      <div className="container mx-auto px-4">
+    <footer className="bg-[#050505] text-white/70 py-16 relative">
+      {/* Top border line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a227]/30 to-transparent" />
+
+      <div className="container mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Logo and info */}
-          <div className="space-y-4">
-            <Link href="/" className="text-2xl font-bold text-white flex items-center">
-              <div className="w-10 h-10 bg-purple-600 dark:bg-purple-700 rounded-full flex items-center justify-center mr-2">
-                <span>HK</span>
-              </div>
-              <span>Harsha Kumarasingha</span>
+          <div className="space-y-6">
+            <Link href="/" className="inline-block">
+              <span className="font-cinzel text-2xl tracking-[0.15em] text-white">HK</span>
             </Link>
-            <p className="text-gray-400 max-w-xs">
-              Building modern web applications with a focus on performance, scalability, and user experience.
+            <p className="font-raleway text-white/40 text-sm leading-relaxed max-w-xs">
+              Building modern applications with a focus on performance, scalability, and premium user experience.
             </p>
-            <div className="flex space-x-4">
-              <motion.a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                whileHover={{ y: -3 }}
-              >
-                <FiGithub size={20} />
-              </motion.a>
-              <motion.a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                whileHover={{ y: -3 }}
-              >
-                <FiTwitter size={20} />
-              </motion.a>
-              <motion.a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                whileHover={{ y: -3 }}
-              >
-                <FiLinkedin size={20} />
-              </motion.a>
-              <motion.a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-                whileHover={{ y: -3 }}
-              >
-                <FiInstagram size={20} />
-              </motion.a>
+            <div className="flex gap-4">
+              {socialLinks.map((social) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/40 hover:border-[#c9a227] hover:text-[#c9a227] transition-all duration-300"
+                  whileHover={{ y: -3 }}
+                  aria-label={social.label}
+                >
+                  <social.icon size={16} />
+                </motion.a>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="text-gray-400 hover:text-white transition-colors">
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
+            <h3 className="font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-6">
+              Navigation
+            </h3>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="font-raleway text-white/40 hover:text-[#c9a227] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>Email: Harshakumara1998030944@gmail.com</li>
-              <li>Phone: +94 773351707</li>
-              <li>Location: 220, sudarshana mawatha, malabe</li>
+            <h3 className="font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-6">
+              Contact
+            </h3>
+            <ul className="space-y-3 font-raleway text-white/40 text-sm">
+              <li>Harshakumara1998030944@gmail.com</li>
+              <li>+94 773351707</li>
+              <li>Malabe, Sri Lanka</li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm">
+        {/* Bottom section */}
+        <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="font-raleway text-white/30 text-xs tracking-wider">
             © {currentYear} Harsha Kumarasingha. All rights reserved.
           </p>
-          <p className="text-gray-500 text-sm mt-4 md:mt-0">
-            Built with Next.js and Tailwind CSS
+          <p className="font-raleway text-white/30 text-xs tracking-wider">
+            Built with Next.js
           </p>
         </div>
       </div>

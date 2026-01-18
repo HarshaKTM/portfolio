@@ -16,9 +16,10 @@ import Contact from '../sections/Contact';
 // Dynamically import Skills component with no SSR
 const Skills = dynamic(() => import('../sections/Skills'), { ssr: false });
 
+
 export default function Home() {
   const { darkMode } = useTheme();
-  
+
   // Add mouse movement effect handlers for Resume button
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);

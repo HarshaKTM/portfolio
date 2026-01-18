@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
+import { FiMail, FiPhone, FiMapPin, FiSend, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { useState } from 'react';
 
 const Contact = () => {
@@ -9,7 +9,7 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [submitError, setSubmitError] = useState('');
@@ -17,7 +17,6 @@ const Contact = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
-    // Clear previous messages when user starts typing again
     if (submitMessage || submitError) {
       setSubmitMessage('');
       setSubmitError('');
@@ -25,144 +24,179 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    // We don't need to prevent default since we want the form to actually submit
     setIsSubmitting(true);
-    
-    // We'll leave this here, but the actual form will be submitted to Formspree
-    // and the page will be redirected there and back, so this won't actually be used
-    // unless there's a client-side validation error
     setTimeout(() => {
       setIsSubmitting(false);
     }, 2000);
   };
 
-  return (
-    <section id="contact" className="py-20 bg-black">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-white mb-4">Get In Touch</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Feel free to reach out to me for collaborations, job opportunities, or just to say hello!
-          </p>
-        </motion.div>
+  const contactInfo = [
+    { icon: FiMail, label: 'Email', value: 'Harshakumara1998030944@gmail.com' },
+    { icon: FiPhone, label: 'Phone', value: '+94 773351707' },
+    { icon: FiMapPin, label: 'Location', value: '220, Sudarshana Mawatha, Malabe' },
+  ];
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+  const socialLinks = [
+    { icon: FiGithub, href: 'https://github.com/HarshaKTM', label: 'GitHub' },
+    { icon: FiLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+    { icon: FiTwitter, href: 'https://twitter.com', label: 'Twitter' },
+  ];
+
+  return (
+    <section id="contact" className="section-cinematic bg-[#0a0a0a] relative">
+      {/* Background gradient */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at bottom, rgba(201, 162, 39, 0.05) 0%, transparent 60%)',
+        }}
+      />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <div className="section-header mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="section-number"
+          >
+            05
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-cinzel text-white tracking-[0.1em]"
+          >
+            Get In Touch
+          </motion.h2>
+          <div className="divider-gold" />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-white/50 font-raleway tracking-wider max-w-xl mx-auto mt-4"
+          >
+            Feel free to reach out for collaborations or just to say hello
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
           {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h3 className="text-2xl font-semibold text-white mb-8">Contact Information</h3>
-            
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <span className="p-3 bg-purple-500/20 text-purple-400 rounded-full">
-                  <FiMail size={24} />
-                </span>
-                <div>
-                  <h4 className="text-lg font-medium text-white">Email</h4>
-                  <p className="text-gray-400">Harshakumara1998030944@gmail.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <span className="p-3 bg-purple-500/20 text-purple-400 rounded-full">
-                  <FiPhone size={24} />
-                </span>
-                <div>
-                  <h4 className="text-lg font-medium text-white">Phone</h4>
-                  <p className="text-gray-400">+94 773351707</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <span className="p-3 bg-purple-500/20 text-purple-400 rounded-full">
-                  <FiMapPin size={24} />
-                </span>
-                <div>
-                  <h4 className="text-lg font-medium text-white">Location</h4>
-                  <p className="text-gray-400">220, sudarshana mawatha, malabe</p>
-                </div>
-              </div>
+            <h3 className="font-cinzel text-xl text-white tracking-wide mb-8">
+              Contact Information
+            </h3>
+
+            <div className="space-y-6 mb-12">
+              {contactInfo.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                  viewport={{ once: true }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 border border-[#c9a227]/30 flex items-center justify-center text-[#c9a227]">
+                    <item.icon size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-1">
+                      {item.label}
+                    </h4>
+                    <p className="font-raleway text-white/80">{item.value}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-            
-            <div className="mt-12">
-              <h4 className="text-lg font-medium text-white mb-4">Follow Me</h4>
-              <div className="flex space-x-4">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                  </svg>
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                  </svg>
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                  </svg>
-                </a>
+
+            {/* Social Links */}
+            <div>
+              <h4 className="font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-4">
+                Follow Me
+              </h4>
+              <div className="flex gap-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 border border-white/20 flex items-center justify-center text-white/50 hover:border-[#c9a227] hover:text-[#c9a227] transition-all duration-300"
+                    aria-label={social.label}
+                  >
+                    <social.icon size={18} />
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>
-          
+
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-semibold text-white mb-8">Send Message</h3>
-            
-            {/* Using standard HTML form approach with Formspree */}
-            <form 
-              action="https://formspree.io/f/myyqvboe" 
+            <h3 className="font-cinzel text-xl text-white tracking-wide mb-8">
+              Send Message
+            </h3>
+
+            <form
+              action="https://formspree.io/f/myyqvboe"
               method="POST"
               className="space-y-6"
               onSubmit={handleSubmit}
             >
-              <div>
-                <label htmlFor="name" className="block text-gray-400 mb-2">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleChange}
+                    required
+                    className="input-cinematic"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    required
+                    className="input-cinematic"
+                    placeholder="Your email"
+                  />
+                </div>
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-gray-400 mb-2">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-gray-400 mb-2">Subject</label>
+                <label htmlFor="subject" className="block font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-2">
+                  Subject
+                </label>
                 <input
                   type="text"
                   id="subject"
@@ -170,12 +204,15 @@ const Contact = () => {
                   value={formState.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="input-cinematic"
+                  placeholder="Subject"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="message" className="block text-gray-400 mb-2">Message</label>
+                <label htmlFor="message" className="block font-raleway text-xs tracking-[0.2em] uppercase text-white/50 mb-2">
+                  Message
+                </label>
                 <textarea
                   id="message"
                   name="message"
@@ -183,41 +220,42 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="input-cinematic resize-none"
+                  placeholder="Your message"
                 ></textarea>
               </div>
-              
-              {/* Add a honeypot field to prevent spam */}
+
+              {/* Honeypot */}
               <div className="hidden">
                 <input type="text" name="_gotcha" />
               </div>
-              
+
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center space-x-2 disabled:opacity-70"
+                className="btn-cinematic btn-gold flex items-center gap-3 disabled:opacity-50"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                <FiSend />
+                <FiSend size={14} />
               </motion.button>
-              
+
               {submitMessage && (
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-green-400 mt-4"
+                  className="text-green-400 font-raleway text-sm"
                 >
                   {submitMessage}
                 </motion.p>
               )}
-              
+
               {submitError && (
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-red-400 mt-4"
+                  className="text-red-400 font-raleway text-sm"
                 >
                   {submitError}
                 </motion.p>
